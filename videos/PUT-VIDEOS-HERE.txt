@@ -1,0 +1,8 @@
+Copy your videos into this folder with these names:
+
+  hero-video.mp4    (big tile, "Harvest & procurement")
+  video-field.mp4   ("Quality checks")
+  hero-wheat.mp4    ("Dispatch")
+
+For sharp but fast videos run:  bash tools/optimize-media.sh original.mp4 videos/hero-video.mp4
+(1920px wide, H.264, no audio, ~5–10 MB each). Missing videos show a placeholder tile.
