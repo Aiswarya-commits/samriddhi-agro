@@ -1,0 +1,147 @@
+/* ==========================================================================
+   Samriddhi brand theme — WHITE + AGRICULTURAL GREEN (from the logo)
+   Load this file LAST (after style.css / about.css). Delete the <link> to go
+   back to the old cream + gold look. All colours are in :root below.
+   ========================================================================== */
+:root {
+  --night: #0f2e1c;            /* deep field green — dark sections, footer */
+  --night-2: #163d26;
+  --cream: #ffffff;            /* page background — white */
+  --cream-2: #f1f7ec;          /* alternate sections — very light green */
+  --ink: #132a1b;              /* body text */
+  --muted: #566b5c;
+  --muted-light: #b9cdbd;
+  --gold: #4e8f2a;             /* MAIN BRAND GREEN — buttons, dots, progress bars */
+  --gold-2: #a9d57a;           /* light green — highlights on dark backgrounds */
+  --leaf: #7bb342;             /* logo leaf green */
+  --brand-dark: #3d7a1f;       /* button hover, green text on white */
+  --line: rgba(19, 42, 27, .12);
+  --line-light: rgba(255, 255, 255, .16);
+}
+
+::selection { background: var(--leaf); color: #fff; }
+
+/* buttons: green with white text */
+.btn { --bg: var(--gold); --fg: #fff; }
+.btn::before { background: var(--brand-dark); }
+.btn:hover { box-shadow: 0 14px 30px -12px rgba(78, 143, 42, .6); }
+.btn.ghost { --bg: transparent; --fg: currentColor; }
+.btn.ghost::before { background: rgba(123, 179, 66, .14); }
+.btn.dark { --bg: var(--night); --fg: #fff; }
+.btn.dark::before { background: var(--brand-dark); }
+
+/* navigation */
+/* .nav { background: rgba(15, 46, 28, .45); } */
+.nav.light { background: rgba(255, 255, 255, .88); border-color: var(--line); }
+.drop { background: #fff; }
+.drop a:hover { background: var(--cream-2); }
+
+/* green accent text on white (was gold-brown) */
+.h2 em, .intro-text p.big b, .why .n, .value .mono, .flip .front .idx, .q-list li::before { color: var(--brand-dark); }
+.q-list li:hover { color: var(--gold); }
+.kick::before { background: var(--leaf); }
+.dark .h2 em { color: var(--gold-2); }
+.eyebrow { color: var(--gold-2); }
+
+/* cards and panels */
+.stat { background: #fff; }
+.svc .ico { background: rgba(123, 179, 66, .16); color: var(--gold-2); }
+.svc::after { background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 50%), rgba(169, 213, 122, .16), transparent 60%); }
+.svc:hover { border-color: rgba(169, 213, 122, .45); }
+.pane.sup { background: #e6f2dc; }
+.pane .orb { background: radial-gradient(circle at 35% 35%, rgba(169, 213, 122, .45), transparent 65%); }
+.band .tile, .more a { background: linear-gradient(135deg, #2c5a2f, #0f2e1c); }
+.tilt .layer, .card3d .face { background: linear-gradient(140deg, #4e8f2a, #0f2e1c); }
+.value:hover { background: var(--night); }
+.flip .front { background: #fff; }
+.flip .back { background: var(--night); }
+.term { background: #fff; }
+.term .ic { background: var(--night); color: var(--gold-2); }
+.buyer { background: var(--night); }
+.buyer .mono { color: var(--gold-2); }
+form.inq { background: #fff; }
+form.inq input:focus, form.inq select:focus, form.inq textarea:focus { border-color: var(--leaf); box-shadow: 0 0 0 4px rgba(123, 179, 66, .2); }
+.step.on .dot { box-shadow: 0 0 0 8px rgba(123, 179, 66, .2); }
+.globe-tag { background: var(--leaf); color: #fff; }
+.cursor.big { background: rgba(169, 213, 122, .9); }
+.loader { background: var(--night); }
+
+/* home hero film */
+.film-badge, .film-cta { background: var(--gold); }
+.film-cta:hover { background: var(--brand-dark); }
+
+/* product pages: 3D story chapters in brand green (overrides each product's own colours) */
+.p-story { --bg2: #154a2a !important; --box: #7bb342 !important; --boxText: #0b2414 !important; }
+.ps-bg { background: radial-gradient(120% 90% at 62% 40%, #1d3a28 0%, #0f2418 48%, #08150d 100%); }
+.cta::after { background: radial-gradient(ellipse at center, rgba(15, 46, 28, .45), rgba(15, 46, 28, .92)); }
+
+/* about page */
+.sec.ab-hero { background: radial-gradient(120% 90% at 70% 40%, #24583a 0%, #133a24 45%, #0a1f13 100%); }
+.sec.ab-mv { background: radial-gradient(110% 90% at 50% 40%, #2a6a3f 0%, #164229 55%, #0b2214 100%); }
+.ab-hero-shade { background: linear-gradient(90deg, rgba(10, 31, 19, .75) 0%, rgba(10, 31, 19, .2) 50%, rgba(10, 31, 19, 0) 70%), linear-gradient(0deg, rgba(10, 31, 19, .6), transparent 35%); }
+.ab-photo-face { background: linear-gradient(135deg, #2a6a3f, #7bb342); }
+.ab-chip { background: #fff; }
+.vcard .mono { color: var(--brand-dark); }
+.vcard.front { background: var(--night); }
+
+/* footer */
+.foot { background: var(--night); }
+.foot-grid a:hover, .c-info dd a:hover, .crumbs a:hover { color: var(--gold-2); }
+
+/* about page: Mission / Vision in light green */
+.sec.ab-mv { background: radial-gradient(110% 90% at 50% 40%, #f4faef 0%, #e4f1da 55%, #d3e8c4 100%); }
+.ab-mv-labels { color: rgba(19, 42, 27, .4); }
+.ab-mv-labels .on { color: var(--brand-dark); }
+.ab-prism .face { color: var(--ink); background: linear-gradient(140deg, rgba(255, 255, 255, .92), rgba(255, 255, 255, .7)); border: 1px solid rgba(78, 143, 42, .25); box-shadow: 0 50px 100px -40px rgba(30, 80, 40, .35); }
+.ab-prism .face .mono { color: var(--brand-dark); }
+.ab-prism .face p { color: var(--muted); }
+.ab-prism .f-top, .ab-prism .f-bottom { background: rgba(123, 179, 66, .18); }
+
+/* footer: 5 columns (brand, products, company, markets, reach us) */
+.foot-grid { grid-template-columns: 1.3fr repeat(4, 1fr); }
+@media (max-width: 860px) { .foot-grid { grid-template-columns: 1fr 1fr; } }
+
+/* ==========================================================================
+   FOOTER — ThreeUI Sylva 3D scene with "SAMRIDDHI" between the plants,
+   footer links laid over the top, IDs along the bottom.
+   ========================================================================== */
+@font-face { font-family: "Lexend"; src: url("/landing-pages/inner-green-assets/lexend-latin.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+.foot.sylva-foot { position: relative; padding: 0; background: #383b34; color: #eef3e7; overflow: hidden;
+  height: 100vh; height: 100svh; min-height: calc(700px + 11.25vw); font-family: "Lexend", var(--sans); font-weight: 300; }
+.sylva-foot .sf-scene { position: absolute; inset: 0; z-index: 0; }
+.sylva-foot .landing-page-frame { position: relative; width: 100%; height: 100%; overflow: hidden; background: #383b34; }
+.sylva-foot iframe { position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; background: #383b34; pointer-events: none; }
+.sylva-foot .sf-top { position: absolute; z-index: 2; top: 0; left: 0; right: 0; padding-top: 112px;
+  display: grid; grid-template-columns: 1.15fr 3fr; gap: 40px; pointer-events: none; }
+.sylva-foot .sf-top a, .sylva-foot .sf-bottom a { pointer-events: auto; }
+.sylva-foot .foot-logo { width: 104px; padding: 8px; margin-bottom: 14px; border-radius: 14px; background: #fff; }
+.sylva-foot .sf-brand p { max-width: 280px; font-size: 14px; line-height: 1.6; color: rgba(238, 243, 231, .66); }
+.sylva-foot .sf-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; }
+.sylva-foot h4 { margin-bottom: 12px; font: 500 11px var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--gold-2, #a9d57a); }
+.sylva-foot .sf-cols a { display: block; padding: 3px 0; font-size: 14.5px; color: rgba(238, 243, 231, .86); transition: color .3s, transform .3s; }
+.sylva-foot .sf-cols a:hover { color: #fff; transform: translateX(4px); }
+.sylva-foot .sf-cols p { margin-top: 8px; font-size: 13px; line-height: 1.55; color: rgba(238, 243, 231, .6); }
+.sylva-foot .sf-bottom { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; padding: 60px 0 22px; pointer-events: none;
+  background: linear-gradient(180deg, rgba(22, 30, 18, 0), rgba(22, 30, 18, .78) 70%); font-size: 12.5px; color: rgba(238, 243, 231, .78); }
+.sylva-foot .sf-bottom .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 20px; }
+.sylva-foot .sf-bottom .ids { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+@media (max-width: 1100px) { .sylva-foot .sf-top { grid-template-columns: 1fr; gap: 22px; padding-top: 100px; } .sylva-foot .sf-brand { display: flex; align-items: center; gap: 18px; } .sylva-foot .foot-logo { margin: 0; } }
+@media (max-width: 900px) {
+  .foot.sylva-foot { height: auto; min-height: 0; display: flex; flex-direction: column; }
+  .sylva-foot .sf-top { position: relative; order: 1; padding: 96px 0 10px; }
+  .sylva-foot .sf-cols { grid-template-columns: 1fr 1fr; gap: 26px 20px; }
+  .sylva-foot .sf-scene { position: relative; order: 2; height: min(100svh, 214vw); margin-top: -14vw; }
+  .sylva-foot .sf-scene::before { content: ""; position: absolute; z-index: 1; left: 0; right: 0; top: 0; height: 120px; background: linear-gradient(#383b34, rgba(56, 59, 52, 0)); pointer-events: none; }
+  .sylva-foot .sf-bottom { position: relative; order: 3; margin-top: -120px; padding: 70px 0 88px; background: linear-gradient(180deg, rgba(22, 30, 18, 0) 0, rgba(22, 30, 18, .8) 110px, rgba(22, 30, 18, .8) 100%); }
+  .sylva-foot .sf-bottom .wrap { flex-direction: column; }
+}
+/* inner-page heroes (About, Quality, Sustainability, What We Do, Markets, Quote …):
+   blend the dark green into the white section below instead of a hard edge */
+.sec.ab-hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 38%; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(214, 232, 200, .18) 30%, rgba(233, 243, 225, .62) 62%, rgba(248, 252, 245, .92) 84%, #fff 100%); }
+
+  /* home "Markets" globe: real Earth you can spin and zoom */
+.globe-wrap.grab { cursor: grabbing; }
+.globe-hint { position: absolute; left: 50%; bottom: -6px; transform: translateX(-50%); white-space: nowrap; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255, 255, 255, .5); pointer-events: none; transition: opacity .4s; }
+.globe-wrap.grab .globe-hint { opacity: 0; }
+@media (max-width: 560px) { .globe-hint { font-size: 9.5px; letter-spacing: .08em; } }

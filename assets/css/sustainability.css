@@ -1,0 +1,35 @@
+/* ==========================================================================
+   Sustainability page — loaded only by sustainability.html
+   (uses the About + Quality layouts; this adds what is new)
+   ========================================================================== */
+.sec.s-hero { background: radial-gradient(120% 90% at 72% 40%, #2d6a3c 0%, #143c25 45%, #0a1f13 100%); }
+#sPlanet { position: absolute; inset: 0; width: 100%; height: 100%; }
+.s-quote { margin-top: 26px; font: 500 italic clamp(18px, 1.7vw, 24px)/1.4 var(--serif); color: rgba(255, 255, 255, .85); }
+.q-checks li b { color: var(--ink); font-weight: 600; }
+
+/* four commitments: pinned, cards fan out */
+.sec.s-fan { height: 300vh; padding: 0; background: radial-gradient(110% 90% at 50% 45%, #2a6a3f 0%, #164229 55%, #0b2214 100%); color: #fff; }
+.fan { position: relative; width: 100%; height: min(420px, 56vh); margin-top: 10vh; perspective: 1600px; }
+.fcard { position: absolute; left: 50%; top: 50%; width: clamp(230px, 22vw, 300px); height: clamp(300px, 28vw, 380px); margin: calc(clamp(300px, 28vw, 380px) / -2) 0 0 calc(clamp(230px, 22vw, 300px) / -2);
+  padding: 28px; border-radius: 24px; display: flex; flex-direction: column; gap: 10px; transform-style: preserve-3d; will-change: transform;
+  background: linear-gradient(160deg, #ffffff 0%, #eef6e6 100%); color: var(--ink); box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .55); }
+.fcard .ic { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; background: var(--night, #0f2e1c); color: var(--gold-2, #a9d57a); margin-bottom: auto; }
+.fcard .ic svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.fcard .mono { color: var(--brand-dark, #3d7a1f); }
+.fcard h3 { font: 600 24px/1.15 var(--serif); }
+.fcard p { font-size: 14.5px; line-height: 1.6; color: var(--muted); }
+
+/* journey path */
+.journey { position: relative; }
+.journey svg { width: 100%; height: clamp(160px, 22vw, 260px); overflow: visible; }
+.jp-base { fill: none; stroke: rgba(78, 143, 42, .18); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 2 14; }
+.jp-line { fill: none; stroke: var(--leaf, #7bb342); stroke-width: 6; stroke-linecap: round; }
+.jp-dot { fill: #fff; stroke: var(--gold, #4e8f2a); stroke-width: 5; filter: drop-shadow(0 6px 10px rgba(15, 46, 28, .35)); }
+.stops { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 18px; }
+.stop { padding: 20px; border-radius: 18px; background: #fff; border: 1px solid var(--line); opacity: .45; transform: translateY(16px); transition: opacity .5s, transform .6s var(--ease), border-color .4s, box-shadow .4s; }
+.stop.on { opacity: 1; transform: none; border-color: rgba(78, 143, 42, .45); box-shadow: 0 20px 40px -24px rgba(15, 46, 28, .35); }
+.stop .mono { color: var(--brand-dark, #3d7a1f); }
+.stop b { display: block; margin-top: 8px; font: 600 20px/1.2 var(--serif); }
+.stop small { display: block; margin-top: 6px; color: var(--muted); font-size: 14px; }
+@media (max-width: 860px) { .stops { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .stops { grid-template-columns: 1fr; } }

@@ -1,0 +1,7 @@
+Copy your product photos into this folder with exactly these names
+(the same names your current site already uses):
+
+  cereals.jpg   oilseeds.jpg   pulses.jpg   cotton.jpg   spices.jpg   flour.jpg
+
+Best size: 1600–2000 px on the long side, JPG quality ~85.
+Until a photo is added, the site shows a clean coloured placeholder instead of a broken image.

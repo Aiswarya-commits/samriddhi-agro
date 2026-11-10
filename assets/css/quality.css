@@ -1,0 +1,51 @@
+/* ==========================================================================
+   Quality & Compliance page — loaded only by quality.html
+   Reuses the About page layout (about.css); this adds what is new.
+   ========================================================================== */
+.sec.q-hero { background: radial-gradient(120% 90% at 72% 45%, #24583a 0%, #133a24 45%, #0a1f13 100%); }
+#qScan { position: absolute; inset: 0; width: 100%; height: 100%; }
+.q-hero-stats { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+.q-hero-stats span { padding: 9px 14px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .22); background: rgba(255, 255, 255, .06); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); font-size: 14px; color: rgba(255, 255, 255, .85); }
+.q-hero-stats b { color: var(--leaf, #7bb342); font-weight: 600; }
+
+/* checklist with self-drawing ticks */
+.q-checks { list-style: none; margin: 26px 0 0; padding: 0; max-width: 580px; }
+.q-checks li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.6; color: var(--ink); }
+.q-checks svg, .coin svg { width: 22px; height: 22px; fill: none; stroke: var(--leaf, #7bb342); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.q-checks svg path { stroke-dasharray: 26; stroke-dashoffset: 26; transition: stroke-dashoffset .8s var(--ease) .35s; }
+.q-checks li.in svg path { stroke-dashoffset: 0; }
+.q-checks li:nth-child(2) { --d: .05s; } .q-checks li:nth-child(3) { --d: .1s; } .q-checks li:nth-child(4) { --d: .15s; }
+.q-checks li:nth-child(5) { --d: .2s; } .q-checks li:nth-child(6) { --d: .25s; } .q-checks li:nth-child(7) { --d: .3s; }
+
+/* handover: pinned triangular prism */
+.sec.q-hand { height: 320vh; padding: 0; background: radial-gradient(110% 90% at 50% 40%, #2a6a3f 0%, #164229 55%, #0b2214 100%); color: #fff; }
+.q-hand-title { position: absolute; top: clamp(90px, 13vh, 130px); left: 50%; transform: translateX(-50%); width: 92vw; text-align: center; font: 600 clamp(32px, 4.2vw, 60px)/1.05 var(--serif); }
+.q-hand-title em { font-style: italic; font-weight: 500; color: var(--gold-2, #a9d57a); }
+.q-labels { top: clamp(170px, 25vh, 230px); white-space: nowrap; }
+.q-tri-wrap { height: min(360px, 46vh); margin-top: 12vh; }
+.q-tri { --h: min(360px, 46vh); --d: calc(var(--h) * .2887); position: relative; width: 100%; height: 100%; transform-style: preserve-3d; will-change: transform; }
+.q-tri .face { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: clamp(26px, 5vw, 64px); border-radius: 26px; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  background: linear-gradient(140deg, rgba(255, 255, 255, .14), rgba(255, 255, 255, .04)); border: 1px solid rgba(255, 255, 255, .2); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: 0 50px 100px -40px rgba(0, 0, 0, .55); }
+.q-tri .face:nth-child(1) { transform: rotateX(0deg) translateZ(var(--d)); }
+.q-tri .face:nth-child(2) { transform: rotateX(-120deg) translateZ(var(--d)); }
+.q-tri .face:nth-child(3) { transform: rotateX(-240deg) translateZ(var(--d)); }
+.q-tri .face .mono { color: var(--leaf, #7bb342); }
+.q-tri .face h3 { margin-top: 10px; font: 600 clamp(36px, 4.6vw, 72px)/1.02 var(--serif); letter-spacing: -.02em; }
+.q-tri .face p { margin-top: 18px; font-size: clamp(16px, 1.4vw, 20px); line-height: 1.6; color: rgba(255, 255, 255, .88); max-width: 640px; }
+.q-dots { position: absolute; bottom: clamp(30px, 7vh, 60px); left: 50%; transform: translateX(-50%); display: flex; gap: 10px; }
+.q-dots i { width: 36px; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .2); transition: background .4s; }
+.q-dots i.on { background: var(--leaf, #7bb342); }
+
+/* registrations: flipping coins */
+.coins { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; perspective: 1200px; }
+.coin { position: relative; aspect-ratio: 1; transform-style: preserve-3d; will-change: transform; cursor: pointer; }
+.coin .cf { position: absolute; inset: 0; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 14%; text-align: center; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.coin .front { background: radial-gradient(circle at 32% 28%, #ffffff 0%, #eef6e6 55%, #d9ebc9 100%); border: 1px solid rgba(78, 143, 42, .3); box-shadow: inset 0 0 0 10px rgba(255, 255, 255, .6), inset 0 0 0 11px rgba(78, 143, 42, .25), 0 30px 60px -30px rgba(15, 46, 28, .45); color: var(--ink); }
+.coin .front .mono { color: var(--brand-dark, #3d7a1f); font-size: 13px; }
+.coin .front b { font: 600 clamp(15px, 1.35vw, 20px)/1.2 var(--mono); letter-spacing: .02em; word-break: break-all; }
+.coin .front small { font-size: 12px; color: var(--muted); }
+.coin .back { transform: rotateY(180deg); background: radial-gradient(circle at 32% 28%, #2f6e3f 0%, #164229 60%, #0b2214 100%); color: #fff; box-shadow: inset 0 0 0 10px rgba(255, 255, 255, .06); font-weight: 600; }
+.coin .back svg { width: 44px; height: 44px; }
+.coin.flip { transform: rotateY(180deg) !important; transition: transform .8s var(--ease); }
+@media (max-width: 860px) { .coins { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 760px) { .q-labels { font-size: 10px; gap: 12px; } .q-tri .face h3 { font-size: 32px; } .q-hand-title { font-size: 30px; } }

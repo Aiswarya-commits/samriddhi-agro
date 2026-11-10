@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request a Quote / Inquiry | Samriddhi Agro Trading and Exim LLP</title>
+<meta name="description" content="Send your commodity requirement to Samriddhi — product, grade, quantity, delivery location and date.">
+<meta name="theme-color" content="#0f2e1c">
+<link rel="icon" href="/images/samslogo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/about.css">
+<link rel="stylesheet" href="/assets/css/pages.css">
+<link rel="stylesheet" href="/assets/css/theme-green.css">
+</head>
+<body class="about inner">
+<!--NAV--><!--/NAV-->
+
+<main>
+<!-- ============ HERO (3D scene: grains) ============ -->
+<section class="sec dark ab-hero pg-hero" id="pgHero">
+  <canvas class="pg-canvas" data-scene="grains" aria-hidden="true"></canvas>
+  <div class="ab-hero-shade"></div>
+  <div class="wrap ab-hero-copy">
+    <div class="crumbs mono" data-reveal><a href="/">Home</a><span>/</span><span class="cur">Request a Quote / Inquiry</span></div>
+    <h1 class="split">Request a Quote /<br><em>Inquiry</em></h1>
+    <p class="ab-tag" data-reveal style="--d:.2s">B2B Agri-Commodity Trading <i>•</i> Sourcing <i>•</i> Domestic Supply <i>•</i> Export</p>
+  </div>
+  <div class="scroll-cue mono">Scroll<span></span></div>
+</section>
+
+<section class="sec" id="quote">
+  <div class="wrap pg-form-wrap">
+    <span class="kick mono" data-reveal>Tell us what you need</span>
+    <h2 class="h2 split">Request a Quote / <em>Inquiry</em></h2>
+    <div style="margin-top:30px">
+    <form class="inq light" data-send="Request a Quote" data-reveal>
+      <label><span>Company Name <i>*</i></span><input name="company" type="text" required></label>
+      <label><span>Contact Person <i>*</i></span><input name="contact" type="text" required></label>
+      <label><span>Email <i>*</i></span><input name="email" type="email" required></label>
+      <label><span>Phone / WhatsApp <i>*</i></span><input name="phone" type="tel" required></label>
+      <label><span>Delivery city / country</span><input name="city" type="text"></label>
+      <label><span>Commodity <i>*</i></span><select name="commodity" required><option>Cereals &amp; Grains</option><option>Oilseeds</option><option>Pulses</option><option>Cotton</option><option>Spices &amp; Dry Fruits</option><option>Flour &amp; Processed</option><option>Other</option></select></label>
+      <label><span>Grade / Specification</span><input name="grade" type="text"></label>
+      <label><span>Quantity <i>*</i></span><input name="qty" type="text" required placeholder="e.g. 1 rake / 25 MT"></label>
+      <label><span>Packaging</span><input name="packaging" type="text" placeholder="Loose / 50 kg PP / jute bags"></label>
+      <label><span>Delivery Location</span><input name="location" type="text"></label>
+      <label><span>Required Delivery Date</span><input name="date" type="date"></label>
+      <label><span>Incoterm – FOB / CFR / CIF, where applicable</span><input name="incoterm" type="text"></label>
+      <label><span>Payment Terms</span><input name="payment" type="text"></label>
+      <label class="full"><span>Additional Requirements</span><textarea name="notes"></textarea></label>
+      <div class="full row">
+        <button class="btn" type="submit">Request a Quote <span class="arr">↗</span></button>
+        <button class="btn ghost" type="button" data-mail style="color:var(--ink)">Send by email</button>
+        <span class="hint">Opens WhatsApp or your email app with the details filled in.</span>
+      </div>
+    </form>
+    </div>
+    <div class="c-cards">
+      <div class="c-card" data-reveal><span class="mono">Corporate office</span><p>Office 204, The Plot 53/54, The Ambiance Park, Turbhe Road, Sector 19A, Vashi, Navi Mumbai, Maharashtra 400703</p></div>
+      <div class="c-card" data-reveal style="--d:.08s"><span class="mono">Phone</span><a href="tel:+917875371535">+91 78753 71535</a></div>
+      <div class="c-card" data-reveal style="--d:.16s"><span class="mono">Email</span><a href="mailto:info@samriddhi-agro.in">info@samriddhi-agro.in</a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!--FOOT--><!--/FOOT-->
+
+<script src="/assets/js/vendor/lenis.min.js"></script>
+<script src="/assets/js/vendor/gsap.min.js"></script>
+<script src="/assets/js/vendor/ScrollTrigger.min.js"></script>
+<script src="/assets/js/main.js"></script>
+<script type="module" src="/assets/js/pages3d.js"></script>
+</body>
+</html>

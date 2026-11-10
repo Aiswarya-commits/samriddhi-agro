@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{NAME}} | Samriddhi Agro Trading and Exim LLP</title>
+<meta name="description" content="{{LEAD}}">
+<meta name="theme-color" content="#0c1511">
+<meta property="og:title" content="{{NAME}} | Samriddhi Agro">
+<meta property="og:description" content="{{LEAD}}">
+<meta property="og:image" content="/products/img/{{SLUG}}.jpg">
+<link rel="icon" href="/images/samslogo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Mono:wght@500&family=Anton&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+   <link rel="stylesheet" href="/assets/css/theme-green.css">
+</head>
+<body class="product" style="--accent:{{ACCENT}};--img:url(/products/img/{{SLUG}}.jpg)" data-particles="{{PARTICLES}}" data-palette="{{PALETTE}}">
+<!--NAV--><!--/NAV-->
+
+<main>
+<!-- ============ 3D PLANT STORY (scroll-driven) — edit words in content/commodities.json → "story" ============ -->
+<section class="sec dark p-story" id="story" data-plant="{{PLANT}}" data-photo="{{PHOTO}}" style="--bg2:{{BG2}};--box:{{BOX}};--boxText:{{BOXTEXT}}">  <div class="ps-pin">
+    <div class="ps-bg" id="psBg"></div>
+    <canvas id="psCanvas" aria-hidden="true"></canvas>
+
+    <div class="ps-ch ps-c1" id="psC1">
+      <div class="crumbs mono"><a href="/">Home</a><span>/</span><a href="/#commodities">Core commodities</a><span>/</span><span class="cur">{{NAME}}</span></div>
+      <h1 class="ps-big"><span>{{L1}}</span><span><mark>{{L2}}</mark></span></h1>
+      <i class="ps-rule"></i>
+      <p class="ps-text">{{LEAD}}</p>
+      <div class="ps-actions">
+        <a class="btn" href="{{WA_MAIN}}" target="_blank" rel="noopener">Request a Quote <span class="arr">↗</span></a>
+        <a class="btn ghost" href="#varieties">What we supply ↓</a>
+      </div>
+      <span class="ps-no mono">{{NO}} · {{NAME}}</span>
+    </div>
+
+    <div class="ps-ch ps-c2" id="psC2"><h2 class="ps-big">{{READY}}</h2></div>
+
+    <div class="ps-ch ps-c3" id="psC3">
+      <h2 class="ps-big ps-center"><mark>{{COUNT}}</mark> {{NOUN}}</h2>
+      <p class="ps-list">{{PLUSLIST}}</p>
+      <p class="ps-small">Grades, origins and quantities depend on season and availability.</p>
+    </div>
+
+    <div class="ps-ch ps-c4" id="psC4">
+      <div class="ps-cut" id="psCut">{{CUTOUT}}</div>
+      <div class="ps-c4text">
+        <span class="ps-kick">Packed &amp; moved:</span>
+        <h2 class="ps-huge">YOUR WAY</h2>
+        <i class="ps-rule"></i>
+        <p class="ps-text">Loose (bulk/rake) or <b>50 kg PP/jute bags</b>. By truck, railway rake or container — with GST invoice, e-way bill and quality report. Lab-tested, inspected lots; specifications and MOQ shared on request.</p>
+      </div>
+    </div>
+
+    <div class="ps-progress" aria-hidden="true"><i id="psProg"></i></div>
+  </div>
+</section>
+
+<section class="sec" id="varieties">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="kick mono" data-reveal>What we supply</span><h2 class="h2 split">{{NAME}}</h2></div>
+      <p class="lede" data-reveal>Hover or tap a card for details. Grades, origins and quantities depend on season and availability — share your specification for a firm quote.</p>
+    </div>
+    <div class="vars">
+{{VARIETIES}}
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="buyers" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="kick mono" data-reveal>Who buys from us</span><h2 class="h2 split">Supplied to <em>the people who process it</em></h2></div>
+      <p class="lede" data-reveal>Lab-tested, inspected lots — every lot checked against the buyer's parameters before dispatch. Full-rake supplies available for large buyers.</p>
+    </div>
+    <div class="buyers">
+{{BUYERS}}
+    </div>
+  </div>
+</section>
+
+<section class="sec paper2">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="kick mono" data-reveal>Trade terms</span><h2 class="h2 split">Packed and moved <em>your way</em></h2></div>
+      <p class="lede" data-reveal>The right grade, on time, with transparent paperwork — deal after deal.</p>
+    </div>
+    <div class="terms">
+      <div class="term" data-reveal data-tilt="6"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></div><small class="mono">Trade terms</small><h3>Packing</h3><p>Loose (bulk/rake) or 50 kg PP/jute bags</p></div>
+      <div class="term" data-reveal data-tilt="6" style="--d:.08s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h11v10H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg></div><small class="mono">Trade terms</small><h3>Supply mode</h3><p>Truck / railway rake / container</p></div>
+      <div class="term" data-reveal data-tilt="6" style="--d:.16s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M10 12h5M10 16h5"/></svg></div><small class="mono">Trade terms</small><h3>Specifications &amp; MOQ</h3><p>Shared on request</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec dark">
+  <div class="wrap">
+    <div class="head"><div><span class="kick mono" data-reveal>How it moves</span><h2 class="h2 split">From farm gate <em>to your gate</em></h2></div></div>
+    <div class="steps">
+      <div class="track"><i></i></div>
+      <div class="step"><span class="dot"></span><small class="mono">Step 01</small><h3>Procure</h3><p>From farmers, FPOs, traders and processors.</p></div>
+      <div class="step"><span class="dot"></span><small class="mono">Step 02</small><h3>Check quality</h3><p>Against the buyer's specification.</p></div>
+      <div class="step"><span class="dot"></span><small class="mono">Step 03</small><h3>Pack</h3><p>Loose (bulk/rake) or 50 kg PP/jute bags.</p></div>
+      <div class="step"><span class="dot"></span><small class="mono">Step 04</small><h3>Deliver</h3><p>By truck, railway rake or container, with transparent paperwork.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="head"><div><span class="kick mono" data-reveal>Explore more</span><h2 class="h2 split">Other core commodities</h2></div></div>
+    <div class="more">
+{{MORE}}
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="bgimg" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="eyebrow mono" data-reveal>Request a quote</span>
+    <h2 class="split">{{CTA}}</h2>
+    <p data-reveal>Tell us your product, quantity and destination — our team will respond with specifications and commercial terms.</p>
+    <div data-reveal style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a class="btn" href="{{WA_MAIN}}" target="_blank" rel="noopener">Request a Quote <span class="arr">↗</span></a><a class="btn ghost" href="/?c={{SLUG}}#contact">Send full enquiry</a></div>
+  </div>
+</section>
+</main>
+
+<!--FOOT--><!--/FOOT-->
+
+<script src="/assets/js/vendor/lenis.min.js"></script>
+<script src="/assets/js/vendor/gsap.min.js"></script>
+<script src="/assets/js/vendor/ScrollTrigger.min.js"></script>
+<script src="/assets/js/main.js"></script>
+<script type="module" src="/assets/js/product.js"></script>
+<script type="module" src="/assets/js/product-story.js"></script>
+</body>
+</html>

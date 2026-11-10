@@ -1,0 +1,10 @@
+{
+  "name": "samriddhi-3d-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Samriddhi Agro 3D website — static, no dependencies",
+  "scripts": {
+    "start": "node server.js",
+    "build": "python tools/build.py"
+  }
+}

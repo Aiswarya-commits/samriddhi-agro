@@ -1,0 +1,398 @@
+[
+  {
+    "slug": "cereals",
+    "no": "01",
+    "name": "Cereals & Grains",
+    "title_lines": [
+      "Cereals",
+      "& Grains"
+    ],
+    "short": "Wheat · Maize · Paddy · Rice",
+    "lead": "Milling-grade wheat, feed and starch-grade maize, paddy and rice — sourced in bulk and graded to your specification.",
+    "cta": "Source cereals & grains with confidence",
+    "accent": "#D9A441",
+    "palette": [
+      "#D9A441",
+      "#E8C36A",
+      "#B9852B",
+      "#F0D58C"
+    ],
+    "particles": "grain",
+    "chips": [
+      "Wheat · Milling grade",
+      "Maize · Feed / starch grade",
+      "Paddy",
+      "Bulk · 50 kg bags"
+    ],
+    "varieties": [
+      [
+        "Wheat",
+        "Milling grade",
+        "For flour mills and food processors, cleaned and graded to the buyer's specification."
+      ],
+      [
+        "Maize",
+        "Feed / starch grade",
+        "For feed makers and starch units, supplied in the grade you need."
+      ],
+      [
+        "Paddy",
+        "Bulk supply",
+        "For rice mills, procured from farmers and FPOs across growing regions."
+      ],
+      [
+        "Rice",
+        "Bulk supply",
+        "For traders, processors and food companies, packed loose or in bags."
+      ]
+    ],
+    "story": {
+      "plant": "ear",
+      "bg2": "#6e4a10",
+      "box": "#e3a83c",
+      "boxText": "#1b1407",
+      "l1": "GRAIN BY",
+      "l2": "GRADE",
+      "ready": "READY TO MILL...",
+      "count": "FOUR",
+      "noun": "GRAINS",
+      "cutout": "cerealsbr.png",
+      "photo": "/products/img/cereals-3d/manifest.json",
+      "buyers": [
+        "Flour & roller mills",
+        "Poultry & cattle feed makers",
+        "Starch units",
+        "Rice mills",
+        "Food & FMCG companies",
+        "Government buyers"
+      ]
+    }
+  },
+  {
+    "slug": "oilseeds",
+    "no": "02",
+    "name": "Oilseeds",
+    "title_lines": [
+      "Oilseeds"
+    ],
+    "short": "Soybean · Groundnut · Mustard · Sesame",
+    "lead": "Soybean, groundnut, mustard and sesame for oil refiners and processors — quality-checked against your specification.",
+    "cta": "Source oilseeds with confidence",
+    "accent": "#E6D3A8",
+    "palette": [
+      "#F3E9D2",
+      "#E6D3A8",
+      "#CDB27C",
+      "#FFFFFF"
+    ],
+    "particles": "grain",
+    "chips": [
+      "Soybean",
+      "Groundnut",
+      "Mustard",
+      "Bulk · 50 kg bags"
+    ],
+    "varieties": [
+      [
+        "Soybean",
+        "Oilseed",
+        "For oil extraction units and meal producers."
+      ],
+      [
+        "Groundnut",
+        "Oilseed",
+        "For oil mills and food processors."
+      ],
+      [
+        "Mustard",
+        "Oilseed",
+        "For oil expellers and refiners."
+      ],
+      [
+        "Sesame",
+        "Oilseed",
+        "For oil mills and food processors."
+      ]
+    ],
+    "story": {
+      "plant": "soy",
+      "bg2": "#4a3b17",
+      "box": "#e6d3a8",
+      "boxText": "#221a08",
+      "l1": "SEED TO",
+      "l2": "OIL",
+      "ready": "READY TO CRUSH...",
+      "count": "FOUR",
+      "noun": "OILSEEDS",
+      "cutout": "",
+      "buyers": [
+        "Edible oil refiners",
+        "Solvent extraction plants",
+        "Oil mills & expellers",
+        "Meal producers & feed makers",
+        "Food processors"
+      ]
+    }
+  },
+  {
+    "slug": "pulses",
+    "no": "03",
+    "name": "Pulses",
+    "title_lines": [
+      "Pulses"
+    ],
+    "short": "Chana · Tur · Urad · Moong · Masoor",
+    "lead": "Chana, tur, urad, moong and masoor in bulk — for dal mills, traders and food companies.",
+    "cta": "Source pulses with confidence",
+    "accent": "#B5A66B",
+    "palette": [
+      "#8F8A5E",
+      "#A69B6B",
+      "#6F6A45",
+      "#C2B582"
+    ],
+    "particles": "round",
+    "chips": [
+      "Chana · Chickpea",
+      "Tur · Toor",
+      "Urad · Black gram",
+      "Bulk · 50 kg bags"
+    ],
+    "varieties": [
+      [
+        "Chana",
+        "Chickpea",
+        "For dal mills, traders and food companies."
+      ],
+      [
+        "Tur",
+        "Toor",
+        "For dal mills and bulk buyers."
+      ],
+      [
+        "Urad",
+        "Black gram",
+        "For dal mills and food processors."
+      ],
+      [
+        "Moong",
+        "Green gram",
+        "For dal mills, traders and food companies."
+      ],
+      [
+        "Masoor",
+        "Red lentil",
+        "For dal mills and bulk buyers."
+      ]
+    ],
+    "story": {
+      "plant": "pod",
+      "bg2": "#3d4320",
+      "box": "#c9c27a",
+      "boxText": "#1c1f0c",
+      "l1": "PODS TO",
+      "l2": "PROTEIN",
+      "ready": "READY FOR THE DAL MILL...",
+      "count": "FIVE",
+      "noun": "PULSES",
+      "cutout": "",
+      "buyers": [
+        "Dal mills",
+        "Traders & wholesalers",
+        "Food & FMCG companies",
+        "Food processors"
+      ]
+    }
+  },
+  {
+    "slug": "cotton",
+    "no": "04",
+    "name": "Cotton",
+    "title_lines": [
+      "Cotton"
+    ],
+    "short": "Cotton bales · Cotton seed",
+    "lead": "Cotton bales and cotton seed, moved by truck, railway rake or container with transparent paperwork.",
+    "cta": "Source cotton with confidence",
+    "accent": "#E9DCC6",
+    "palette": [
+      "#FFFFFF",
+      "#F4EEE3",
+      "#E9DCC6"
+    ],
+    "particles": "fluff",
+    "chips": [
+      "Cotton bales · Lint",
+      "Cotton seed",
+      "Bulk · 50 kg bags",
+      "Truck · rake · container"
+    ],
+    "varieties": [
+      [
+        "Cotton bales",
+        "Lint",
+        "For spinning mills and textile buyers."
+      ],
+      [
+        "Cotton seed",
+        "Seed",
+        "For oil mills and cattle-feed makers."
+      ]
+    ],
+    "story": {
+      "plant": "boll",
+      "bg2": "#1f3328",
+      "box": "#f3eee3",
+      "boxText": "#1b2a1f",
+      "l1": "FROM BOLL",
+      "l2": "TO BALE",
+      "ready": "READY TO SPIN...",
+      "count": "TWO",
+      "noun": "PRODUCTS",
+      "cutout": "cottonfornew.png",
+      "buyers": [
+        "Textile & spinning mills",
+        "Oil mills (cotton seed)",
+        "Cattle-feed makers (cotton seed)",
+        "Traders & exporters"
+      ]
+    }
+  },
+  {
+    "slug": "spices",
+    "no": "05",
+    "name": "Spices & Dry Fruits",
+    "title_lines": [
+      "Spices &",
+      "Dry Fruits"
+    ],
+    "short": "Turmeric · Cumin · Coriander · Chilli",
+    "lead": "Turmeric, cumin, coriander, red chilli and dry fruits — sourced and supplied to the buyer's specification.",
+    "cta": "Source spices & dry fruits with confidence",
+    "accent": "#C8572E",
+    "palette": [
+      "#C8572E",
+      "#E0A23B",
+      "#D4C24A",
+      "#8F3B22"
+    ],
+    "particles": "dust",
+    "chips": [
+      "Turmeric",
+      "Cumin",
+      "Coriander",
+      "Bulk · 50 kg bags"
+    ],
+    "varieties": [
+      [
+        "Turmeric",
+        "Spice",
+        "Whole or as specified by the buyer."
+      ],
+      [
+        "Cumin",
+        "Spice",
+        "Graded and cleaned to the buyer's specification."
+      ],
+      [
+        "Coriander",
+        "Spice",
+        "Whole or as specified by the buyer."
+      ],
+      [
+        "Red chilli",
+        "Spice",
+        "Graded to the buyer's specification."
+      ],
+      [
+        "Dry fruits",
+        "Dry fruits",
+        "Varieties and grades shared on request."
+      ]
+    ],
+    "story": {
+      "plant": "chilli",
+      "bg2": "#7d140e",
+      "box": "#d32a1c",
+      "boxText": "#ffffff",
+      "l1": "THE HEAT",
+      "l2": "OF INDIA",
+      "ready": "READY TO GRIND...",
+      "count": "FIVE",
+      "noun": "ESSENTIALS",
+      "cutout": "",
+      "buyers": [
+        "Food & FMCG companies",
+        "Spice processors & grinders",
+        "Traders & wholesalers",
+        "Exporters"
+      ]
+    }
+  },
+  {
+    "slug": "flour",
+    "no": "06",
+    "name": "Flour & Processed",
+    "title_lines": [
+      "Flour &",
+      "Processed"
+    ],
+    "short": "Atta · Maida · Edible oil · Agro inputs",
+    "lead": "Wheat flour (atta), maida, edible oil and agro inputs — processed products in bulk for food companies and distributors.",
+    "cta": "Source flour & processed products with confidence",
+    "accent": "#E8DCC2",
+    "palette": [
+      "#FFFFFF",
+      "#F2EADB",
+      "#E8DCC2"
+    ],
+    "particles": "dust",
+    "chips": [
+      "Wheat flour · Atta",
+      "Maida · Refined flour",
+      "Edible oil · Incl. groundnut oil",
+      "Bulk · 50 kg bags"
+    ],
+    "varieties": [
+      [
+        "Wheat flour",
+        "Atta",
+        "For food companies, distributors and institutional buyers."
+      ],
+      [
+        "Maida",
+        "Refined flour",
+        "For bakeries and food processors."
+      ],
+      [
+        "Edible oil",
+        "Incl. groundnut oil",
+        "For distributors and food companies."
+      ],
+      [
+        "Agro inputs",
+        "Agro chemicals",
+        "Agro chemicals — range on request."
+      ]
+    ],
+    "story": {
+      "plant": "flour",
+      "bg2": "#4f4130",
+      "box": "#efe6d2",
+      "boxText": "#221a0e",
+      "l1": "FIELD TO",
+      "l2": "FLOUR",
+      "ready": "READY TO PROCESS...",
+      "count": "FOUR",
+      "noun": "PRODUCTS",
+      "cutout": "",
+      "buyers": [
+        "Food & FMCG companies",
+        "Bakeries",
+        "Distributors",
+        "Institutional buyers",
+        "Edible oil distributors"
+      ]
+    }
+  }
+]
