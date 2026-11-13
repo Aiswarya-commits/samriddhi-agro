@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="/assets/css/style.css">
 <link rel="stylesheet" href="/assets/css/about.css">
 <link rel="stylesheet" href="/assets/css/pages.css">
+<link rel="stylesheet" href="/assets/css/about-film.css">v
 <link rel="stylesheet" href="/assets/css/theme-green.css">
 </head>
 <body class="about inner">
@@ -19,17 +20,20 @@
 
 <main>
 <!-- ============ HERO (3D scene: route) ============ -->
-<section class="sec dark ab-hero pg-hero" id="pgHero">
-  <canvas class="pg-canvas" data-scene="route" aria-hidden="true"></canvas>
-  <div class="ab-hero-shade"></div>
-  <div class="wrap ab-hero-copy">
-    <div class="crumbs mono" data-reveal><a href="/">Home</a><span>/</span><a href="/what-we-do.html">What We Do</a><span>/</span><span class="cur">Our Supply Chain</span></div>
-    <h1 class="split">Our Supply <em>Chain</em></h1>
-    <p class="ab-tag" data-reveal style="--d:.2s">B2B Agri-Commodity Trading <i>•</i> Sourcing <i>•</i> Domestic Supply <i>•</i> Export</p>
+<section class="ab-film" id="abFilm" data-rise data-frames="/supplyframes/supply-frame-" data-ext=".jpg" data-end="240">
+  <div class="abf-pin">
+    <div class="abf-stage"><canvas class="abf-canvas" aria-label="Camera rising from a farmer in a rice field to the open landscape"></canvas></div>
+    <div class="abf-shade"></div>
+    <div class="wrap abf-copy">
+      <div class="crumbs mono"><a href="/">Home</a><span>/</span><a href="/what-we-do.html">What We Do</a><span>/</span><span class="cur">Our Supply Chain</span></div>
+      <h1>Our Supply <em>Chain</em></h1>
+      <p class="ab-tag">Farm gate <i>•</i> Quality check <i>•</i> Dispatch <i>•</i> Delivery</p>
+    </div>
+    <div class="wrap abf-mid"><span class="mono">From farm gate to your gate</span><p>One team from the first field to the final delivery — sourcing, checks, logistics and paperwork.</p></div>
+    <div class="abf-cue mono">Scroll<span></span></div>
+    <div class="abf-veil"></div>
   </div>
-  <div class="scroll-cue mono">Scroll<span></span></div>
 </section>
-
 <section class="sec" id="chain">
   <div class="wrap">
     <span class="kick mono" data-reveal>Source to buyer</span>
@@ -65,6 +69,7 @@
 <script src="/assets/js/vendor/gsap.min.js"></script>
 <script src="/assets/js/vendor/ScrollTrigger.min.js"></script>
 <script src="/assets/js/main.js"></script>
+<script src="/assets/js/about-film.js"></script>
 <script type="module" src="/assets/js/pages3d.js"></script>
 </body>
 </html>

@@ -3,6 +3,7 @@
    Load this file LAST (after style.css / about.css). Delete the <link> to go
    back to the old cream + gold look. All colours are in :root below.
    ========================================================================== */
+   @import url("https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
 :root {
   --night: #0f2e1c;            /* deep field green — dark sections, footer */
   --night-2: #163d26;
@@ -145,3 +146,132 @@ form.inq input:focus, form.inq select:focus, form.inq textarea:focus { border-co
 .globe-hint { position: absolute; left: 50%; bottom: -6px; transform: translateX(-50%); white-space: nowrap; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255, 255, 255, .5); pointer-events: none; transition: opacity .4s; }
 .globe-wrap.grab .globe-hint { opacity: 0; }
 @media (max-width: 560px) { .globe-hint { font-size: 9.5px; letter-spacing: .08em; } }
+
+/* home hero product list: one large 3D cut-out that turns like a coin to the next product */
+.range-card.is3d { background: none; box-shadow: none; overflow: visible; transform: none; }
+.range-card.is3d:hover { transform: none; }
+.range-card.is3d .media { opacity: 0; }
+.range-card .r3d { display: none; }
+.range-card.is3d .r3d { display: block; position: absolute; inset: -42% -50% -30% -38%; perspective: 1200px; pointer-events: none; --mx: 0; --my: 0; }
+.r3d-float { position: absolute; inset: 0; transform-style: preserve-3d; animation: r3dFloat 7s ease-in-out infinite;
+  transform: rotateY(calc(var(--mx) * 22deg)) rotateX(calc(var(--my) * -14deg)); transition: transform .6s var(--ease); }
+@keyframes r3dFloat { 0%, 100% { translate: 0 -8px; } 50% { translate: 0 10px; } }
+.r3d-face { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; will-change: transform;
+  filter: drop-shadow(0 36px 34px rgba(0, 0, 0, .42)) drop-shadow(0 8px 12px rgba(0, 0, 0, .22)); }
+.r3d-face:not([src]) { visibility: hidden; }
+.r3d-shadow { position: absolute; left: 26%; right: 26%; bottom: 10%; height: 7%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, .35), transparent); filter: blur(8px); animation: r3dShadow 7s ease-in-out infinite; }
+@keyframes r3dShadow { 0%, 100% { transform: scaleX(.94); opacity: .8; } 50% { transform: scaleX(1.05); opacity: .55; } }
+@media (max-width: 760px) { .range-card.is3d .r3d { inset: -25% -30% -15% -20%; } }
+@media (prefers-reduced-motion: reduce) { .r3d-float, .r3d-shadow { animation: none; } }
+
+
+/* pastel green sections (were dark green) — soft logo-green background, dark green text */
+.sec.pastel { background: linear-gradient(180deg, #eef6e6 0%, #e2f0d6 100%); color: var(--ink); }
+.sec.pastel .lede, .sec.pastel .pg-intro { color: var(--muted); }
+/* home: "Six ways" service cards */
+.sec.pastel .svc { background: rgba(255, 255, 255, .72); border-color: rgba(78, 143, 42, .18); color: var(--ink); box-shadow: 0 24px 50px -36px rgba(30, 80, 40, .45); }
+.sec.pastel .svc:hover { border-color: rgba(78, 143, 42, .45); }
+.sec.pastel .svc::after { background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 50%), rgba(169, 213, 122, .28), transparent 60%); }
+.sec.pastel .svc .ico { background: rgba(123, 179, 66, .18); color: var(--brand-dark); }
+.sec.pastel .svc p, .sec.pastel .svc .no { color: var(--muted); }
+/* home: "Four steps" timeline */
+.sec.pastel .steps .track { background: rgba(19, 42, 27, .15); }
+.sec.pastel .step .dot { background: #fff; }
+.sec.pastel .step p { color: var(--muted); }
+/* home: markets lists + globe */
+.sec.pastel .mk-cols h3 { color: var(--brand-dark); }
+.sec.pastel .mk-cols li { color: var(--ink); border-top-color: rgba(19, 42, 27, .12); }
+.sec.pastel .mk-cols ol li::before { color: var(--brand-dark); }
+.sec.pastel .globe-hint { color: rgba(19, 42, 27, .5); }
+/* home: contact */
+.sec.pastel .c-info dt { color: var(--muted); }
+.sec.pastel .c-info dd a:hover { color: var(--brand-dark); }
+/* about: offices */
+.sec.pastel .office { border-left-color: rgba(19, 42, 27, .15); }
+.sec.pastel .office .mono { color: var(--brand-dark); }
+.sec.pastel .office p { color: var(--ink); }
+/* "Source with confidence" card */
+.pane.buy { background: linear-gradient(150deg, #d9edc8, #c3e0aa); color: var(--ink); }
+.pane.buy li::before { color: var(--brand-dark); }
+/* big "Request a quote" bands */
+.cta { background: linear-gradient(180deg, #eef6e6, #dcedcd); color: var(--ink); }
+.cta .bgimg { opacity: .18; }
+.cta::after { background: radial-gradient(ellipse at center, rgba(238, 246, 230, .55), rgba(226, 240, 214, .9)); }
+.cta p { color: var(--muted); }
+.cta .eyebrow { color: var(--brand-dark); }
+
+/* ==========================================================================
+   FONT — clean modern grotesk (Inter Tight) everywhere, like the reference.
+   Loaded by the @import on the first line of this file.
+   ========================================================================== */
+:root {
+  --serif: "Inter Tight", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --sans: "Inter Tight", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+body { font-family: var(--sans); }
+/* headings: tighter, lighter weight; the green highlight word stays green but upright */
+h1, h2, h3, .h2, .film-title, .cta h2, .ps-big, .ps-kick, .ps-huge { font-family: var(--sans); letter-spacing: -0.025em; }
+h1, h2, .h2, .film-title, .cta h2 { font-weight: 500; }
+h1 em, h2 em, h3 em, .h2 em { font-style: normal; }
+.ps-big, .ps-kick, .ps-huge { font-weight: 600; letter-spacing: -0.03em; }
+/* menu: small spaced capitals */
+.menu > li > a { font-family: var(--sans); font-size: 13px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+
+/* the 3D cotton that flies from the hero into the About photo while scrolling */
+.r3d-fly { position: fixed; left: 0; top: 0; z-index: 40; object-fit: contain; pointer-events: none; opacity: 0; will-change: transform, width, height;
+  filter: drop-shadow(0 30px 30px rgba(0, 0, 0, .35)); }
+
+  /* ==========================================================================
+   SOFT JOINS — light-green sections fade into the white sections around them
+   (no hard line where white meets pastel green), on every page.
+   ========================================================================== */
+.sec.paper2 { background: linear-gradient(180deg, #fff 0, var(--cream-2) clamp(90px, 14vh, 180px), var(--cream-2) calc(100% - clamp(90px, 14vh, 180px)), #fff 100%); }
+.sec.pastel { background: linear-gradient(180deg, #fff 0, #eef6e6 clamp(90px, 14vh, 180px), #e2f0d6 calc(100% - clamp(90px, 14vh, 180px)), #fff 100%); }
+.sec.ab-mv { background: linear-gradient(180deg, #fff 0, rgba(255, 255, 255, 0) clamp(90px, 14vh, 180px), rgba(255, 255, 255, 0) calc(100% - clamp(90px, 14vh, 180px)), #fff 100%),
+  radial-gradient(110% 90% at 50% 40%, #f4faef 0%, #e4f1da 55%, #d3e8c4 100%); }
+.cta { background: linear-gradient(180deg, #fff 0, #eef6e6 clamp(90px, 14vh, 180px), #dcedcd 100%); }
+
+/* ==========================================================================
+   NO MORE DARK GREEN — the remaining dark sections become pastel
+   green → pastel blue (the two logo colours), with soft white joins.
+   ========================================================================== */
+:root { --pg-green: #e9f4e0; --pg-blue: #e2eef8; --pg-blue-2: #d3e5f4; --logo-blue: #1f4e79; }
+/* every pastel section: green at the top drifting to blue at the bottom, white at both edges */
+.sec.pastel { background: linear-gradient(180deg, #fff 0, var(--pg-green) clamp(90px, 14vh, 180px), var(--pg-blue) calc(100% - clamp(90px, 14vh, 180px)), #fff 100%); }
+
+/* Quality: "Quality at every handover" (3D prism) */
+.sec.q-hand { color: var(--ink); background: linear-gradient(180deg, #fff 0, var(--pg-green) 18vh, var(--pg-blue) calc(100% - 18vh), #fff 100%); }
+.q-hand-title em { color: var(--brand-dark); }
+.q-tri .face { background: linear-gradient(140deg, rgba(255, 255, 255, .92), rgba(255, 255, 255, .72)); border-color: rgba(78, 143, 42, .22); box-shadow: 0 50px 100px -40px rgba(31, 78, 121, .35); }
+.q-tri .face .mono { color: var(--brand-dark); }
+.q-tri .face p { color: var(--muted); }
+.q-dots i { background: rgba(19, 42, 27, .15); }
+.coin .back { background: radial-gradient(circle at 32% 28%, #ffffff 0%, var(--pg-blue) 55%, var(--pg-blue-2) 100%); color: var(--logo-blue); box-shadow: inset 0 0 0 10px rgba(255, 255, 255, .6), 0 30px 60px -30px rgba(31, 78, 121, .4); }
+
+/* Sustainability: four commitments (fanning cards) */
+.sec.s-fan { color: var(--ink); background: linear-gradient(180deg, #fff 0, var(--pg-green) 18vh, var(--pg-blue) calc(100% - 18vh), #fff 100%); }
+.fcard { box-shadow: 0 40px 80px -30px rgba(31, 78, 121, .35); }
+.fcard .ic { background: var(--pg-green); color: var(--brand-dark); }
+
+/* inner-page 3D headers that are still dark (Insights, Trade Stories, Request a Quote) */
+.sec.pg-hero { background: radial-gradient(120% 90% at 72% 42%, #ffffff 0%, var(--pg-green) 45%, var(--pg-blue) 100%); color: var(--ink); }
+.sec.pg-hero .ab-hero-copy, .sec.pg-hero h1 { color: var(--ink); }
+.sec.pg-hero h1 em { color: var(--brand-dark); }
+.sec.pg-hero .ab-tag { color: var(--muted); }
+.sec.pg-hero .crumbs, .sec.pg-hero .crumbs a { color: var(--muted); }
+.sec.pg-hero .ab-hero-shade { background: linear-gradient(90deg, rgba(255, 255, 255, .7) 0%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, 0) 70%), linear-gradient(0deg, #fff, transparent 30%); }
+.sec.pg-hero .scroll-cue { color: var(--muted); }
+
+/* small dark panels inside light sections */
+.pg-col.alt { background: linear-gradient(160deg, var(--pg-green), var(--pg-blue)); color: var(--ink); }
+.vcard.front { background: linear-gradient(160deg, #ffffff, var(--pg-blue)); color: var(--ink); border: 1px solid rgba(31, 78, 121, .15); }
+.buyer { background: linear-gradient(160deg, var(--pg-green), var(--pg-blue)); color: var(--ink); }
+.buyer .mono { color: var(--brand-dark); }
+
+/* footer: dark green, fading in from white at its top (soft joint, no hard line) */
+/* .foot { background: linear-gradient(180deg, #fff 0, #cfe3c4 40px, #2c5a3a 130px, var(--night) 230px); padding-top: 230px; }
+.cta { background: linear-gradient(180deg, #fff 0, #eef6e6 clamp(90px, 14vh, 180px), #e4f1da 70%, #fff 100%); } */
+
+/* navbar: always visible (never slides away while scrolling) */
+.nav.hide { transform: translate(-50%, 0); }

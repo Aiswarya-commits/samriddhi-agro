@@ -100,11 +100,56 @@
   /* ---------- commodity list + card ---------- */
   var items = range ? Array.prototype.slice.call(range.querySelectorAll(".range-list a")) : [];
   var rImg = $("rangeImg"), rMedia = $("rangeMedia"), rFb = $("rangeFb"), current = -1, hoverIdx = -1;
+  /* 3D product cut-outs (background-removed PNGs in /images/). On hover the current one
+     turns away in 3D and the next one turns in. If a PNG is missing, the old photo card is used. */
+  var R3D = { cereals: "wheat3d.png", oilseeds: "oilseeds3d.png", pulses: "pulses3d.png", cotton: "cotton3d.png", spices: "spices3d.png", flour: "flour3d.png" };
+  var r3dBad = {}, r3d = null;
+  (function () {
+    var card = rMedia && rMedia.closest(".range-card"); if (!card) return;
+    var stage = document.createElement("div"); stage.className = "r3d"; stage.setAttribute("aria-hidden", "true");
+    stage.innerHTML = '<div class="r3d-float"><img class="r3d-face" alt=""></div><span class="r3d-shadow"></span>';
+    card.appendChild(stage);
+    r3d = { card: card, stage: stage, face: stage.querySelector(".r3d-face"), shown: "", want: "", busy: false };
+    Object.keys(R3D).forEach(function (s) { var im = new Image(); im.onerror = function () { r3dBad[s] = true; }; im.src = "/images/" + R3D[s]; });
+    /* the cut-out leans toward the mouse */
+    card.addEventListener("pointermove", function (e) {
+      var b = card.getBoundingClientRect();
+      stage.style.setProperty("--mx", ((e.clientX - b.left) / b.width - .5).toFixed(3));
+      stage.style.setProperty("--my", ((e.clientY - b.top) / b.height - .5).toFixed(3));
+    });
+    card.addEventListener("pointerleave", function () { stage.style.setProperty("--mx", 0); stage.style.setProperty("--my", 0); });
+  })();
+  /* one image that turns like a coin: spins to edge-on, swaps to the next product, spins back to face you */
+  function turn3d(slug, name) {
+    r3d.card.classList.add("is3d");
+    rImg.alt = name; rFb.textContent = name; r3d.face.alt = name;
+    r3d.want = slug;
+    if (!r3d.shown) { r3d.shown = slug; r3d.face.src = "/images/" + R3D[slug]; return; }
+    if (!r3d.busy) turnNext();
+  }
+  function turnNext() {
+    var target = r3d.want, face = r3d.face;
+    if (target === r3d.shown) { r3d.busy = false; return; }
+    r3d.busy = true;
+    var next = new Image(); next.src = "/images/" + R3D[target];
+    var ready = next.decode ? next.decode().catch(function () {}) : Promise.resolve();
+    var away = face.animate([{ transform: "rotateY(0deg) scale(1)" }, { transform: "rotateY(90deg) scale(.9)" }],
+      { duration: 280, easing: "cubic-bezier(.55,0,1,.45)", fill: "forwards" });
+    Promise.all([away.finished, ready]).then(function () {
+      if (!next.naturalWidth) { r3dBad[target] = true; r3d.busy = false; current = -1; setItem(items.findIndex(function (a) { return a.dataset.slug === target; })); return; }
+      face.src = next.src; r3d.shown = target;
+      var back = face.animate([{ transform: "rotateY(-90deg) scale(.9)" }, { transform: "rotateY(0deg) scale(1)" }],
+        { duration: 520, easing: "cubic-bezier(0,.55,.25,1)", fill: "forwards" });
+      back.finished.then(function () { turnNext(); });   // if the mouse moved on meanwhile, turn again
+    });
+  }
   function setItem(i) {
     if (i === current || !items[i]) return;
     current = i;
     items.forEach(function (a, k) { a.classList.toggle("on", k === i); });
     var slug = items[i].dataset.slug, name = items[i].dataset.name;
+    if (r3d && R3D[slug] && !r3dBad[slug]) { turn3d(slug, name); return; }
+    if (r3d) { r3d.card.classList.remove("is3d"); }
     rMedia.classList.add("swap");
     setTimeout(function () {
       rMedia.classList.remove("missing");
@@ -188,4 +233,45 @@
     playIf(loops[2], sk > 0.01);
   }
   requestAnimationFrame(frame);
+
+  /* ---------- after the last product (cotton): as you scroll on, the 3D cotton rotates and flies
+     down into the cotton photo in the About section, landing exactly on it.
+     Target = the element marked data-fly-target, or else the big photo in the About card. ---------- */
+  (function () {
+    if (!r3d || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var target = document.querySelector("[data-fly-target]") || document.querySelector("#about .intro-visual .l1");
+    if (!target) return;
+    var photo = target.querySelector(".media") || target;
+    photo.style.transition = "none";
+    var fly = document.createElement("img");
+    fly.className = "r3d-fly"; fly.alt = ""; fly.setAttribute("aria-hidden", "true");
+    document.body.appendChild(fly);
+    var ease = function (x) { return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+    var lerp = function (a, b, k) { return a + (b - a) * k; };
+    var was = false;
+    function tick() {
+      requestAnimationFrame(tick);
+      var y = window.scrollY || window.pageYOffset;
+      var hb = hero.getBoundingClientRect(), tb = target.getBoundingClientRect();
+      var start = y + hb.bottom - innerHeight;                    // hero stops being pinned
+      var end = y + tb.top - innerHeight * (innerWidth < 760 ? .2 : .28);  // photo is well in view
+      var q = end > start ? (y - start) / (end - start) : -1;
+      var on = q > 0 && q < 1 && r3d.face.getAttribute("src");
+      /* the cotton photo stays hidden until the 3D cotton arrives, then fades in as the 3D one fades out */
+      photo.style.opacity = (!r3d.face.getAttribute("src") || q >= 1) ? 1 : q <= .78 ? 0 : (q - .78) / .22;
+      if (!on) {
+        if (was) { fly.style.opacity = 0; r3d.face.style.visibility = ""; was = false; }
+        return;
+      }
+      if (!was) { fly.src = r3d.face.src; was = true; }
+      r3d.face.style.visibility = "hidden";
+      var a = r3d.face.getBoundingClientRect(), k = ease(q);
+      var w = lerp(a.width, tb.width, k), h = lerp(a.height, tb.height, k);
+      var x = lerp(a.left, tb.left, k), yy = lerp(a.top, tb.top, k) - Math.sin(Math.PI * q) * innerHeight * .08;  // slight arc
+      fly.style.width = w + "px"; fly.style.height = h + "px";
+      fly.style.transform = "translate3d(" + x + "px," + yy + "px,0) perspective(900px) rotateZ(" + (-360 * k) + "deg) rotateY(" + (Math.sin(Math.PI * q) * 35) + "deg)";
+      fly.style.opacity = q > .8 ? (1 - (q - .8) / .2) : 1;   // fades out while the photo fades in
+    }
+    requestAnimationFrame(tick);
+  })();
 })();

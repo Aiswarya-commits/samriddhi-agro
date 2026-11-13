@@ -66,18 +66,18 @@ def shell(text):
 # ---------- home ----------
 home = (ROOT / "src/index.html").read_text(encoding="utf-8")
 cards = "\n".join(
-    f'      <a class="card" href="/products/{c["slug"]}.html" data-name="{e(c["name"])}" data-no="{c["no"]}" aria-label="{e(c["name"])}: {e(c["short"])}">'
+          f'      <a class="card" href="/products.html#pf-{c["slug"]}" data-name="{e(c["name"])}" data-no="{c["no"]}" aria-label="{e(c["name"])}: {e(c["short"])}">'
     f'{media(c["slug"], c["no"])}<span class="open">Open ↗</span>'
     f'<span class="foot"><span class="idx">{c["no"]}</span><span><span class="nm">{e(c["name"])}</span><span class="rl">{e(c["short"])}</span></span></span></a>'
     for c in items)
 home = put(home, "STRIP", cards)
 home = put(home, "RANGE", "\n".join(
-    f'        <li><a href="/products/{c["slug"]}.html" data-slug="{c["slug"]}" data-name="{e(c["name"])}"><span class="mono">{c["no"]}</span>{e(c["name"])}</a></li>' for c in items))
+          f'        <li><a href="/products.html#pf-{c["slug"]}" data-slug="{c["slug"]}" data-name="{e(c["name"])}"><span class="mono">{c["no"]}</span>{e(c["name"])}</a></li>' for c in items))
 home = put(home, "OPTIONS", "".join(f"<option>{e(c['name'])}</option>" for c in items))
 (ROOT / "index.html").write_text(shell(home), encoding="utf-8")
 
 # ---------- about + other pages ----------
-for page in ["about", "quality", "sustainability", "what-we-do", "supply-chain", "markets", "market-intelligence", "for-buyers", "for-suppliers", "insights", "trade-stories", "quote"]:   # src/<name>.html → <name>.html
+for page in ["about","products", "quality", "sustainability", "what-we-do", "supply-chain", "markets", "market-intelligence", "for-buyers", "for-suppliers", "insights", "trade-stories", "quote"]:   # src/<name>.html → <name>.html
     if (ROOT / f"src/{page}.html").exists():
         (ROOT / f"{page}.html").write_text(shell((ROOT / f"src/{page}.html").read_text(encoding="utf-8")), encoding="utf-8")
         # ---------- products ----------

@@ -1,0 +1,70 @@
+/* ==========================================================================
+   Products page — one full-screen film per product. Each video plays with
+   your scroll while its details appear; then the next product rises from
+   below and covers it in 3D.
+   ========================================================================== */
+.pf-intro { position: relative; padding: clamp(140px, 18vh, 200px) 0 clamp(60px, 9vh, 100px); background: linear-gradient(180deg, #eef6e6, #fff); }
+.pf-intro h1 { font: 500 clamp(52px, 8vw, 120px)/.95 var(--serif); letter-spacing: -.03em; color: var(--ink); }
+.pf-intro h1 em { font-style: normal; color: var(--brand-dark, #3d7a1f); }
+.pf-intro .crumbs { margin-bottom: 22px; }
+.pf-intro-lead { max-width: 640px; margin-top: 20px; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.65; color: var(--muted); }
+.pf-index { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 34px; }
+.pf-index a { display: inline-flex; align-items: center; gap: 10px; padding: 11px 18px; border-radius: 999px; background: #fff; border: 1px solid var(--line); font-weight: 500; font-size: 15px; transition: background .3s, color .3s, transform .3s; }
+.pf-index a .mono { font-size: 11px; color: var(--brand-dark, #3d7a1f); }
+.pf-index a:hover { background: var(--gold, #4e8f2a); color: #fff; transform: translateY(-2px); }
+.pf-index a:hover .mono { color: #dff0cf; }
+.pf-cue { margin-top: 46px; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.pf-cue span { display: block; width: 1px; height: 40px; margin-top: 12px; background: linear-gradient(var(--brand-dark, #3d7a1f), transparent); animation: pfCue 1.8s ease-in-out infinite; transform-origin: top; }
+@keyframes pfCue { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+
+/* the stack: every section overlaps the previous one by one screen, so it slides up over it */
+.pf-stack { position: relative; background: #0b1f13; }
+.pf-sec { position: relative; height: 330vh; z-index: var(--z); }
+.pf-sec + .pf-sec { margin-top: -100vh; margin-top: -100svh; }
+.pf-pin { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; perspective: 1400px; }
+.pf-card { position: absolute; inset: 0; overflow: hidden; background: #0b1f13; transform-origin: 50% 0%; will-change: transform, filter; backface-visibility: hidden;
+  box-shadow: 0 -40px 80px -30px rgba(0, 0, 0, .55); }
+.pf-sec + .pf-sec .pf-card { border-radius: 34px 34px 0 0; }
+.pf-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; will-change: transform; backface-visibility: hidden; transform: translateZ(0); }
+.pf-shade { position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(6, 18, 10, .9) 0%, rgba(6, 18, 10, .78) 32%, rgba(6, 18, 10, .3) 58%, rgba(6, 18, 10, 0) 78%), linear-gradient(0deg, rgba(6, 18, 10, .55), transparent 30%), linear-gradient(180deg, rgba(6, 18, 10, .45), transparent 22%); }
+.pf-copy { position: relative; height: 100%; display: flex; flex-direction: column; justify-content: center; justify-content: safe center; color: #fff; padding-top: 110px; padding-bottom: 40px; }
+.pf-copy > * { max-width: 560px; }
+
+/* details appear one by one as the video plays */
+.pf-in { opacity: 0; transform: translate3d(0, 26px, 0); transition: opacity .7s var(--ease), transform .9s var(--ease); }
+.pf-in.on { opacity: 1; transform: none; }
+.pf-no { font-size: 11.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-2, #a9d57a); }
+.pf-name { margin-top: 12px; font: 500 clamp(44px, 6vw, 92px)/.95 var(--serif); letter-spacing: -.035em; }
+.pf-short { margin-top: 14px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255, 255, 255, .72); }
+.pf-lead { margin-top: 16px; font-size: clamp(15px, 1.15vw, 17.5px); line-height: 1.6; color: rgba(255, 255, 255, .86); }
+.pf-vars { list-style: none; margin: 22px 0 0; padding: 0; border-top: 1px solid rgba(255, 255, 255, .16); }
+.pf-vars li { display: grid; grid-template-columns: 150px 1fr; column-gap: 16px; padding: 11px 0; border-bottom: 1px solid rgba(255, 255, 255, .12); }
+.pf-vars b { font-weight: 600; font-size: 16px; }
+.pf-vars span { font-size: 13px; color: var(--gold-2, #a9d57a); align-self: center; }
+.pf-vars em { grid-column: 2; font-style: normal; font-size: 13.5px; line-height: 1.45; color: rgba(255, 255, 255, .66); }
+.pf-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px; }
+.pf-facts span { font-size: 13px; line-height: 1.45; color: rgba(255, 255, 255, .84); }
+.pf-facts small { display: block; margin-bottom: 4px; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-2, #a9d57a); }
+.pf-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 24px; }
+.pf-more { font-weight: 600; font-size: 15px; color: #fff; border-bottom: 1px solid rgba(255, 255, 255, .4); padding-bottom: 2px; }
+.pf-more:hover { border-color: #fff; }
+.pf-cta small { width: 100%; font-size: 11px; letter-spacing: .08em; color: rgba(255, 255, 255, .55); }
+
+/* progress bar along the bottom of each film */
+.pf-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(255, 255, 255, .14); }
+.pf-bar i { display: block; height: 100%; background: var(--leaf, #7bb342); transform-origin: left; transform: scaleX(var(--p, 0)); }
+
+/* short screens: hide the longest text so everything fits */
+@media (max-height: 940px) and (min-width: 761px) { .pf-vars em { display: none; } .pf-vars li { padding: 9px 0; } }
+@media (max-height: 760px) and (min-width: 761px) { .pf-lead { display: none; } }
+@media (max-width: 760px) {
+  .pf-sec { height: 300vh; }
+  .pf-shade { background: linear-gradient(0deg, rgba(6, 18, 10, .92) 0%, rgba(6, 18, 10, .7) 55%, rgba(6, 18, 10, .15) 85%); }
+  .pf-copy { justify-content: flex-end; padding-bottom: 34px; }
+  .pf-lead, .pf-vars em, .pf-facts span:nth-child(3) { display: none; }
+  .pf-vars li { grid-template-columns: 1fr auto; padding: 8px 0; }
+  .pf-facts { grid-template-columns: 1fr 1fr; }
+  .pf-sec + .pf-sec .pf-card { border-radius: 22px 22px 0 0; }
+}
+@media (prefers-reduced-motion: reduce) { .pf-in { transition: none; } }

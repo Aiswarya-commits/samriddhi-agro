@@ -205,62 +205,8 @@
     }
   },
   {
-    "slug": "cotton",
-    "no": "04",
-    "name": "Cotton",
-    "title_lines": [
-      "Cotton"
-    ],
-    "short": "Cotton bales · Cotton seed",
-    "lead": "Cotton bales and cotton seed, moved by truck, railway rake or container with transparent paperwork.",
-    "cta": "Source cotton with confidence",
-    "accent": "#E9DCC6",
-    "palette": [
-      "#FFFFFF",
-      "#F4EEE3",
-      "#E9DCC6"
-    ],
-    "particles": "fluff",
-    "chips": [
-      "Cotton bales · Lint",
-      "Cotton seed",
-      "Bulk · 50 kg bags",
-      "Truck · rake · container"
-    ],
-    "varieties": [
-      [
-        "Cotton bales",
-        "Lint",
-        "For spinning mills and textile buyers."
-      ],
-      [
-        "Cotton seed",
-        "Seed",
-        "For oil mills and cattle-feed makers."
-      ]
-    ],
-    "story": {
-      "plant": "boll",
-      "bg2": "#1f3328",
-      "box": "#f3eee3",
-      "boxText": "#1b2a1f",
-      "l1": "FROM BOLL",
-      "l2": "TO BALE",
-      "ready": "READY TO SPIN...",
-      "count": "TWO",
-      "noun": "PRODUCTS",
-      "cutout": "cottonfornew.png",
-      "buyers": [
-        "Textile & spinning mills",
-        "Oil mills (cotton seed)",
-        "Cattle-feed makers (cotton seed)",
-        "Traders & exporters"
-      ]
-    }
-  },
-  {
     "slug": "spices",
-    "no": "05",
+    "no": "04",
     "name": "Spices & Dry Fruits",
     "title_lines": [
       "Spices &",
@@ -331,7 +277,7 @@
   },
   {
     "slug": "flour",
-    "no": "06",
+    "no": "05",
     "name": "Flour & Processed",
     "title_lines": [
       "Flour &",
@@ -394,5 +340,60 @@
         "Edible oil distributors"
       ]
     }
+  },
+    {
+    "slug": "cotton",
+    "no": "06",
+    "name": "Cotton",
+    "title_lines": [
+      "Cotton"
+    ],
+    "short": "Cotton bales · Cotton seed",
+    "lead": "Cotton bales and cotton seed, moved by truck, railway rake or container with transparent paperwork.",
+    "cta": "Source cotton with confidence",
+    "accent": "#E9DCC6",
+    "palette": [
+      "#FFFFFF",
+      "#F4EEE3",
+      "#E9DCC6"
+    ],
+    "particles": "fluff",
+    "chips": [
+      "Cotton bales · Lint",
+      "Cotton seed",
+      "Bulk · 50 kg bags",
+      "Truck · rake · container"
+    ],
+    "varieties": [
+      [
+        "Cotton bales",
+        "Lint",
+        "For spinning mills and textile buyers."
+      ],
+      [
+        "Cotton seed",
+        "Seed",
+        "For oil mills and cattle-feed makers."
+      ]
+    ],
+    "story": {
+      "plant": "boll",
+      "bg2": "#1f3328",
+      "box": "#f3eee3",
+      "boxText": "#1b2a1f",
+      "l1": "FROM BOLL",
+      "l2": "TO BALE",
+      "ready": "READY TO SPIN...",
+      "count": "TWO",
+      "noun": "PRODUCTS",
+      "cutout": "cottonfornew.png",
+      "buyers": [
+        "Textile & spinning mills",
+        "Oil mills (cotton seed)",
+        "Cattle-feed makers (cotton seed)",
+        "Traders & exporters"
+      ]
+    }
   }
+
 ]

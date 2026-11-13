@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="/assets/css/about.css">
 <link rel="stylesheet" href="/assets/css/quality.css">
 <link rel="stylesheet" href="/assets/css/sustainability.css">
+<link rel="stylesheet" href="/assets/css/about-film.css">
 <link rel="stylesheet" href="/assets/css/theme-green.css">
 </head>
 <body class="about sustain">
@@ -20,18 +21,20 @@
 
 <main>
 <!-- ============ HERO: a small planet that sprouts wheat ============ -->
-<section class="sec dark ab-hero s-hero" id="sHero">
-  <canvas id="sPlanet" aria-hidden="true"></canvas>
-  <div class="ab-hero-shade"></div>
-  <div class="wrap ab-hero-copy">
-    <div class="crumbs mono" data-reveal><a href="/">Home</a><span>/</span><a href="/about.html">About Samriddhi</a><span>/</span><span class="cur">Sustainability</span></div>
-    <h1 class="split"><em>Sustainability</em></h1>
-    <p class="ab-tag" data-reveal style="--d:.2s">B2B Agri-Commodity Trading <i>•</i> Sourcing <i>•</i> Domestic Supply <i>•</i> Export</p>
-    <p class="s-quote" data-reveal style="--d:.35s">“Good trade should be good for the farmer too.”</p>
+<section class="ab-film" id="abFilm" data-rise data-frames="/sustainframes/sustain-frame-" data-ext=".jpg" data-end="240">
+  <div class="abf-pin">
+    <div class="abf-stage"><canvas class="abf-canvas" aria-label="Bare soil sprouting into a golden wheat field"></canvas></div>
+    <div class="abf-shade"></div>
+    <div class="wrap abf-copy">
+      <div class="crumbs mono"><a href="/">Home</a><span>/</span><a href="/about.html">About Samriddhi</a><span>/</span><span class="cur">Sustainability</span></div>
+      <h1><em>Sustainability</em></h1>
+      <p class="ab-tag">“Good trade should be good for the farmer too.”</p>
+    </div>
+    <div class="wrap abf-mid"><span class="mono">From soil to harvest</span><p>Responsible sourcing that respects the land, the farmer and the next season’s crop.</p></div>
+    <div class="abf-cue mono">Scroll<span></span></div>
+    <div class="abf-veil"></div>
   </div>
-  <div class="scroll-cue mono">Scroll<span></span></div>
 </section>
-
 <!-- ============ RESPONSIBLE SOURCING ============ -->
 <section class="sec" id="sourcing">
   <div class="wrap ab-profile">
@@ -112,6 +115,7 @@
 <script src="/assets/js/vendor/gsap.min.js"></script>
 <script src="/assets/js/vendor/ScrollTrigger.min.js"></script>
 <script src="/assets/js/main.js"></script>
+<script src="/assets/js/about-film.js"></script>
 <script type="module" src="/assets/js/sustain3d.js"></script>
 </body>
 </html>

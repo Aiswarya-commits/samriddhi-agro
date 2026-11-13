@@ -1,0 +1,37 @@
+/* ==========================================================================
+   About page — scroll-driven farmer film (frames drawn on a canvas)
+   ========================================================================== */
+.ab-film { position: relative; height: 460vh; background: #0f2e1c; }
+.abf-pin { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.abf-stage { position: absolute; inset: 0; transform-origin: 58% 55%; will-change: transform; background: radial-gradient(120% 90% at 60% 40%, #2c5a2f, #0f2e1c); }
+.abf-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.abf-shade { position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(8, 24, 14, .62) 0%, rgba(8, 24, 14, .18) 45%, rgba(8, 24, 14, 0) 70%), linear-gradient(0deg, rgba(8, 24, 14, .45), transparent 35%); }
+.abf-veil { position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  background: radial-gradient(120% 120% at 60% 50%, rgba(255, 255, 255, .85), #fff 70%); }
+.abf-copy { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; color: #fff; will-change: transform, opacity; }
+.abf-copy .crumbs .cur { color: var(--gold-2, #a9d57a); }
+.abf-copy h1 { font: 500 clamp(52px, 8vw, 128px)/.95 var(--serif); letter-spacing: -.03em; text-shadow: 0 10px 40px rgba(0, 0, 0, .35); }
+.abf-copy h1 em { font-style: normal; color: var(--gold-2, #a9d57a); }
+.abf-copy .ab-tag { margin-top: 18px; font-size: clamp(15px, 1.3vw, 19px); color: rgba(255, 255, 255, .88); }
+.abf-copy .ab-tag i { color: var(--leaf, #7bb342); font-style: normal; margin: 0 8px; }
+.abf-mid { position: absolute; left: 0; right: 0; bottom: 14vh; opacity: 0; color: #fff; will-change: transform, opacity; }
+.abf-mid p { max-width: 560px; font: 500 clamp(22px, 2.4vw, 36px)/1.2 var(--serif); letter-spacing: -.02em; text-shadow: 0 8px 30px rgba(0, 0, 0, .45); }
+.abf-mid .mono { display: block; margin-bottom: 12px; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-2, #a9d57a); }
+.abf-cue { position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); color: rgba(255, 255, 255, .75); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; }
+.abf-cue span { display: block; width: 1px; height: 38px; margin: 10px auto 0; background: linear-gradient(rgba(255, 255, 255, .8), transparent); animation: abfCue 1.8s ease-in-out infinite; transform-origin: top; }
+@keyframes abfCue { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+.ab-film.no-frames { height: 100vh; height: 100svh; }
+@media (max-width: 760px) { .ab-film { height: 360vh; } .abf-mid { bottom: 18vh; } }
+
+/* wheat that flies from the film into the Company Profile card */
+.abf-fly { position: fixed; left: 0; top: 0; z-index: 40; object-fit: contain; pointer-events: none; opacity: 0; will-change: transform, width, height;
+  filter: drop-shadow(0 30px 30px rgba(0, 0, 0, .3)); }
+.abf-land { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 1; border-radius: inherit; }
+.abf-land.cut { object-fit: contain; padding: 8%; }
+
+/* data-rise: the section after the film slides up over it, with rounded top corners */
+.ab-film[data-rise] .abf-pin { transform-origin: 50% 0%; will-change: transform, filter; backface-visibility: hidden; }
+.ab-film[data-rise] + * { position: relative; z-index: 2; margin-top: -100vh; margin-top: -100svh; background-color: #fff;
+  border-radius: 34px 34px 0 0; box-shadow: 0 -40px 80px -30px rgba(0, 0, 0, .45); }
+@media (max-width: 760px) { .ab-film[data-rise] + * { border-radius: 22px 22px 0 0; } }
