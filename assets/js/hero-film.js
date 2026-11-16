@@ -24,6 +24,30 @@
   var hero = document.getElementById("top");
   var vid = document.getElementById("filmVideo");
   if (!hero || !vid) return;
+
+  /* ---- ONE-FILM MODE (data-single on #top): one video carries the whole hero ----
+     field → farmer throws the grain → grain flies at you   : Company Introduction
+     the warehouse from outside                              : How we work
+     inside the warehouse                                    : From India's fields to your specification
+     KEYS = [scroll share, video second] — the video follows these points, so each text gets time to read. */
+  var SINGLE = hero.hasAttribute("data-single");
+  var KEYS = [[0, 0], [0.18, 3.4], [0.34, 4.12], [0.355, 4.25], [0.56, 5.9], [0.64, 6.7], [1, 9.95]];
+  if (SINGLE) {
+    INTRO_PLAY = 0; MAX_ZOOM = 1.06;   // start on frame 1: the sharpest frame (the drone shot blurs once it moves)
+    T = {
+      introIn: [0.18, 0.23], introOut: [0.31, 0.34],
+      plantIn: [2, 2.1], storyIn: [0.38, 0.42], storyWords: [0.4, 0.52], storyOut: [0.54, 0.57],
+      rocksIn: [2, 2.1], rangeIn: [0.64, 0.68], rangeSteps: [0.68, 0.97]
+    };
+    SMOKE_PEAKS = [];
+  }
+  function timeAt(p) {
+    for (var i = 1; i < KEYS.length; i++) if (p <= KEYS[i][0]) {
+      var a = KEYS[i - 1], b = KEYS[i], k = (p - a[0]) / (b[0] - a[0]);
+      return a[1] + (b[1] - a[1]) * k;
+    }
+    return KEYS[KEYS.length - 1][1];
+  }
   var $ = function (id) { return document.getElementById(id); };
   var stage = $("filmStage"), shade = $("filmShade"), copy = $("filmCopy"), tags = $("filmTags"), intro = $("filmIntro");
   var plant = $("scenePlant"), rocks = $("sceneRocks"), mist = $("filmMist"), smoke = $("filmSmoke");
@@ -62,7 +86,7 @@
   function driveVideo(v) {
     if (!introDone || !dur) return;
     var last = Math.floor((dur - 0.06) * FPS), first = Math.round(INTRO_PLAY * FPS);
-    wantFrame = Math.round(first + v * (last - first));
+    wantFrame = SINGLE ? clamp(Math.round(timeAt(v) * FPS), first, last) : Math.round(first + v * (last - first));
     smoothF += (wantFrame - smoothF) * (reduced ? 1 : 0.2);
     if (Math.abs(wantFrame - smoothF) < 0.5) smoothF = wantFrame;
     var f = Math.round(smoothF);
@@ -83,7 +107,7 @@
       l.v.preload = "auto"; l.v.src = (small && l.v.dataset.srcMobile) || l.v.dataset.src; l.v.load();
     });
   }
-  setTimeout(loadLoops, 3500);
+  if (!SINGLE) setTimeout(loadLoops, 3500);
   function playIf(l, on) {
     if (on) { if (!l.loaded) loadLoops(); if (l.v.paused) { var q = l.v.play(); if (q && q.catch) q.catch(function () {}); } }
     else if (!l.v.paused) l.v.pause();
@@ -176,14 +200,14 @@
     requestAnimationFrame(frame);
     if (!visible) { loops.forEach(function (l) { playIf(l, false); }); return; }
     var p = progress();
-    var v = clamp(p / VIDEO_END, 0, 1);
+    var v = SINGLE ? p : clamp(p / VIDEO_END, 0, 1);
     driveVideo(v);
     if (Math.abs(p - lastP) < 0.00002) return;   // nothing moved → touch nothing
     lastP = p;
 
     /* wheat: camera push-in, headline out */
     if (!reduced) {
-      var e = Math.pow(v, 1.3);
+      var e = Math.pow(SINGLE ? sm([0, 0.34], p) : v, 1.3);
       var tf = "perspective(1400px) rotateX(" + (6 * Math.sin(v * Math.PI)).toFixed(2) + "deg) scale(" + (1 + (MAX_ZOOM - 1) * e).toFixed(4) + ")";
       if (stage.__t !== tf) { stage.__t = tf; stage.style.transform = tf; }
     }
@@ -197,6 +221,19 @@
     show(intro, inn, "translate(-50%, " + (-46 + (1 - sm(T.introIn, p)) * 6 - sm(T.introOut, p) * 8).toFixed(2) + "%)");
 
     /* scenes */
+    if (SINGLE) {
+      show(stage, 1); show(plant, 0); show(rocks, 0); show(smoke, 0); mist.style.opacity = 0;
+      shade.style.opacity = (1 - 0.35 * sm([0.12, 0.2], p)).toFixed(3);
+      show(intro, inn, "translate(-50%, " + (-46 + (1 - sm(T.introIn, p)) * 6 - sm(T.introOut, p) * 8).toFixed(2) + "%)");
+      var so1 = sm(T.storyIn, p) * (1 - sm(T.storyOut, p));
+      show(story, so1);
+      var wp1 = sm(T.storyWords, p) * words.length;
+      words.forEach(function (w, i) { var on = i < wp1; if (w.__on !== on) { w.__on = on; w.classList.toggle("on", on); } });
+      story.classList.toggle("hs-on", p > T.storyWords[0] + 0.04 && so1 > 0.5);
+      show(range, sm(T.rangeIn, p));
+      if (hoverIdx < 0 && items.length && p >= T.rangeIn[0]) setItem(clamp(Math.floor(sm(T.rangeSteps, p) * items.length), 0, items.length - 1));
+      return;
+    }
     var pl = sm(T.plantIn, p) * (1 - sm(T.rocksIn, p));
     var rk = sm(T.rocksIn, p);
     show(stage, 1 - sm(T.plantIn, p));

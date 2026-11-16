@@ -275,3 +275,12 @@ h1 em, h2 em, h3 em, .h2 em { font-style: normal; }
 
 /* navbar: always visible (never slides away while scrolling) */
 .nav.hide { transform: translate(-50%, 0); }
+
+/* home hero, one-film mode: darken the busy warehouse behind the text so it stays readable */
+.hero.film[data-single] .film-story::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(55% 60% at 62% 40%, rgba(8, 14, 8, .62), rgba(8, 14, 8, 0) 75%); }
+.hero.film[data-single] .film-story, .hero.film[data-single] .film-range { isolation: isolate; }
+.hero.film[data-single] .story-text { text-shadow: 0 2px 18px rgba(0, 0, 0, .65); }
+.hero.film[data-single] .film-range::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(90deg, rgba(8, 14, 8, .6) 0%, rgba(8, 14, 8, .25) 45%, rgba(8, 14, 8, .5) 75%, rgba(8, 14, 8, .62) 100%), linear-gradient(180deg, rgba(8, 14, 8, .45), rgba(8, 14, 8, 0) 35%); }
+.hero.film[data-single] .range-title, .hero.film[data-single] .range-list a { text-shadow: 0 1px 12px rgba(0, 0, 0, .7); }

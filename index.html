@@ -13,9 +13,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css?v=663c5e3f">
-  <link rel="stylesheet" href="/assets/css/theme-green.css?v=3025777c">
+  <link rel="stylesheet" href="/assets/css/theme-green.css?v=84fa16b8">
 <link rel="modulepreload" href="/assets/js/vendor/three.module.min.js">
-<link rel="preload" as="image" href="/videos/hero-wheat-poster.jpg">
+<link rel="preload" as="image" href="/videos/hero-farm-poster.jpg">
 </head>
 <body class="home">
 <!--NAV-->
@@ -55,12 +55,11 @@
 <!-- ============ HERO: scroll-driven film (your hero-wheat video) ============
      The video moves only with the scroll, with a 3D camera push-in,
      then hands over to the Company Introduction. Text is edited right here. -->
-<section class="hero film" id="top">
+<section class="hero film" id="top" data-single>
   <div class="hero-pin">
     <div class="film-stage" id="filmStage">
-      <video id="filmVideo" muted playsinline preload="auto" poster="/videos/hero-wheat-poster.jpg"
-             data-src="/videos/hero-wheat.mp4" data-src-mobile="/videos/hero-wheat-mobile.mp4"></video>
-    </div>
+      <video id="filmVideo" muted playsinline preload="auto" poster="/videos/hero-farm-poster.jpg"
+             data-src="/videos/hero-farm.mp4" data-src-mobile="/videos/hero-farm-mobile.mp4"></video>    </div>
     <div class="film-shade" id="filmShade"></div>
 
     <div class="film-tags" id="filmTags" aria-hidden="true">
@@ -406,7 +405,7 @@
 <script src="/assets/js/vendor/gsap.min.js"></script>
 <script src="/assets/js/vendor/ScrollTrigger.min.js"></script>
 <script src="/assets/js/main.js?v=c2c80d91"></script>
-<script src="/assets/js/hero-film.js?v=6a583591"></script>
+<script src="/assets/js/hero-film.js?v=2947c5b7"></script>
 <script type="module" src="/assets/js/home.js?v=fe86ea1b"></script>
 </body>
 </html>
