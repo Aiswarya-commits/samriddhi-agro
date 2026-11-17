@@ -35,3 +35,6 @@
 .ab-film[data-rise] + * { position: relative; z-index: 2; margin-top: -100vh; margin-top: -100svh; background-color: #fff;
   border-radius: 34px 34px 0 0; box-shadow: 0 -40px 80px -30px rgba(0, 0, 0, .45); }
 @media (max-width: 760px) { .ab-film[data-rise] + * { border-radius: 22px 22px 0 0; } }
+
+/* safety net: the space behind a tilted film matches the film's darkest tone, never a bright strip */
+.abf-pin { background: #0b1a10; }

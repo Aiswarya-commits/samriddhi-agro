@@ -208,7 +208,7 @@
     /* wheat: camera push-in, headline out */
     if (!reduced) {
       var e = Math.pow(SINGLE ? sm([0, 0.34], p) : v, 1.3);
-      var tf = "perspective(1400px) rotateX(" + (6 * Math.sin(v * Math.PI)).toFixed(2) + "deg) scale(" + (1 + (MAX_ZOOM - 1) * e).toFixed(4) + ")";
+      var tf = "perspective(1400px) rotateX(" + (6 * Math.sin(v * Math.PI)).toFixed(2) + "deg) scale(" + ((1 + (MAX_ZOOM - 1) * e) * (1 + 0.075 * Math.sin(v * Math.PI))).toFixed(4) + ")";   // extra scale while tilted: no edges show
       if (stage.__t !== tf) { stage.__t = tf; stage.style.transform = tf; }
     }
     var out = sm([0.008, 0.06], p);

@@ -532,7 +532,7 @@ form.inq .hint { font: 400 13px var(--sans); letter-spacing: 0; text-transform: 
 .film-copy a { pointer-events: auto; }
 .film-eyebrow { font-size: clamp(11px, .95vw, 14px); letter-spacing: .14em; color: rgba(255, 255, 255, .82); }
 .film-title { margin-top: clamp(16px, 2.6vh, 28px); max-width: 12.4em; font: 500 clamp(38px, 4.6vw, 74px)/1.1 var(--serif); letter-spacing: -.01em; color: #fff; text-shadow: 0 2px 30px rgba(0, 0, 0, .25); }
-.film-btn { display: inline-flex; align-items: center; margin-top: clamp(26px, 5vh, 46px); padding: 18px 44px 18px 16px; border: 1px solid rgba(255, 255, 255, .45); border-radius: 8px;
+.film-btn { display: inline-flex; align-items: center; margin-top: clamp(26px, 5vh, 46px); padding: 18px 44px 18px 16px; border: 1px solid rgba(255, 255, 255, .45); border-radius: 38px;
   color: #fff; font-weight: 600; font-size: 15px; background: rgba(255, 255, 255, .02); transition: background .35s, border-color .35s, padding .45s var(--ease); }
 .film-btn:hover { background: rgba(255, 255, 255, .12); border-color: #fff; padding-right: 54px; }
 .film-lead { max-width: 600px; font-size: clamp(16px, 1.32vw, 20px); line-height: 1.55; color: rgba(255, 255, 255, .92); text-shadow: 0 1px 18px rgba(0, 0, 0, .35); }

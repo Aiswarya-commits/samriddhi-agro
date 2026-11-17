@@ -60,7 +60,7 @@
     });
   }
 
-  var mx = 0, my = 0;
+  var mx = 0, my = 0, smx = 0, smy = 0;
   addEventListener("pointermove", function (e) { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; }, { passive: true });
 
   function frame() {
@@ -79,9 +79,13 @@
       if (need || idx !== lastIdx) { need = false; lastIdx = idx; shown = -1; draw(idx); }
     }
     /* 3D feel: slow push-in while it plays, the wheat rushes toward you at the end, and a gentle lean to the mouse */
-    var push = 1 + vp * .1;
     var lean = 1 - sm(.78, .85, p);                              // stop leaning before the wheat lifts out
-    stage.style.transform = "perspective(1200px) rotateX(" + (my * -2.2 * lean) + "deg) rotateY(" + (mx * 3 * lean) + "deg) scale(" + push.toFixed(4) + ")";
+    smx += (mx - smx) * .08; smy += (my - smy) * .08;            // the lean follows the mouse softly
+    var rx = smy * -2.2 * lean, ry = smx * 3 * lean;
+    /* when the film leans, enlarge it just enough that its edges never come into view */
+    var cover = 1 + (Math.abs(rx) + Math.abs(ry)) * 0.035 + 0.012;
+    var push = (1 + vp * .1) * cover;
+    stage.style.transform = "perspective(1200px) rotateX(" + rx.toFixed(3) + "deg) rotateY(" + ry.toFixed(3) + "deg) scale(" + push.toFixed(4) + ")";
     if (rise) {
       var lv = clamp((2 * innerHeight - r.bottom) / innerHeight, 0, 1);   // 0 → 1 while the next section covers the film
       pin.style.transform = lv > 0.001 ? "perspective(1400px) translate3d(0," + (-lv * 3).toFixed(2) + "%,0) rotateX(" + (-lv * 6).toFixed(2) + "deg) scale(" + (1 - lv * 0.1).toFixed(3) + ")" : "";
