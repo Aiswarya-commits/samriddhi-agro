@@ -14,10 +14,25 @@
     return { sec: sec, card: sec.querySelector(".pf-card"), v: sec.querySelector(".pf-video"), bar: sec.querySelector(".pf-bar"),
              ins: [].slice.call(sec.querySelectorAll(".pf-in")), loaded: false };
   });
+
+  /* Smooth on the live site: the video starts streaming at once, and in the background the whole file
+     is downloaded; when it arrives the player switches to that in-memory copy (same frame), so
+     scrubbing never waits for the network again. */
+  function memoryCopy(v, url) {
+    if (!window.fetch || !window.URL || !URL.createObjectURL) return;
+    fetch(url).then(function (r) { return r.ok ? r.blob() : null; }).then(function (b) {
+      if (!b) return;
+      var t = v.currentTime || 0, u = URL.createObjectURL(b);
+      v.addEventListener("loadedmetadata", function once() { v.removeEventListener("loadedmetadata", once); try { v.currentTime = t; } catch (e) {} });
+      v.src = u; v.load();
+    }).catch(function () {});
+  }
+
   function load(s) {
     if (s.loaded) return; s.loaded = true;
     s.v.src = s.v.dataset.src; s.v.preload = "auto";
     s.v.play().then(function () { s.v.pause(); }).catch(function () {});   // wakes the decoder on iOS
+    memoryCopy(s.v, s.v.dataset.src);
   }
   load(S[0]);
 

@@ -64,11 +64,27 @@
     if (extra !== undefined && el.__t !== extra) { el.__t = extra; el.style.transform = extra; }
   }
 
+
+  /* Smooth on the live site: the video starts streaming at once, and in the background the whole file
+     is downloaded; when it arrives the player switches to that in-memory copy (same frame), so
+     scrubbing never waits for the network again. */
+  function memoryCopy(v, url) {
+    if (!window.fetch || !window.URL || !URL.createObjectURL) return;
+    fetch(url).then(function (r) { return r.ok ? r.blob() : null; }).then(function (b) {
+      if (!b) return;
+      var t = v.currentTime || 0, u = URL.createObjectURL(b);
+      v.addEventListener("loadedmetadata", function once() { v.removeEventListener("loadedmetadata", once); try { v.currentTime = t; } catch (e) {} });
+      v.src = u; v.load();
+    }).catch(function () {});
+  }
+
   /* ---------- 1. wheat video ---------- */
   var dur = 0, shownFrame = -1, wantFrame = 0, introDone = false, readyCalled = false, visible = true;
   function ready() { if (!readyCalled) { readyCalled = true; window.samriddhiReady && window.samriddhiReady(); } }
   vid.muted = true; vid.playsInline = true;
   vid.src = (small && vid.dataset.srcMobile) || vid.dataset.src;
+  var heroUrl = vid.src;
+  addEventListener("load", function () { setTimeout(function () { memoryCopy(vid, heroUrl); }, 300); });
   vid.addEventListener("loadedmetadata", function () { dur = vid.duration || 0; });
   vid.addEventListener("loadeddata", ready);
   vid.addEventListener("error", ready);

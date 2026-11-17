@@ -17,12 +17,15 @@
   var N = +(sec.dataset.count || 0), imgs = [], shown = -1, cur = 0, need = true, lastIdx = -1;
   var END = +(sec.dataset.end || 222);         // film stops on this frame: the whole wheat ear, mid-air
   var url = function (i) { return base + String(i + 1).padStart(pad, "0") + ext; };
+  stage.style.backgroundImage = "url(" + url(0) + ")";            // the first picture shows even before the film is ready
+  stage.style.backgroundSize = "cover"; stage.style.backgroundPosition = "center";
   var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
   var sm = function (a, b, x) { x = clamp((x - a) / (b - a), 0, 1); return x * x * (3 - 2 * x); };
 
   function exists(i) { return fetch(url(i - 1), { method: "HEAD" }).then(function (r) { return r.ok; }).catch(function () { return false; }); }
   function countFrames() {
     if (N) return Promise.resolve(N);
+    if (sec.dataset.end) return Promise.resolve(+sec.dataset.end);   // frame count known: start loading at once
     var hi = 64;
     function grow() { return exists(hi).then(function (ok) { if (ok && hi < 4096) { hi *= 2; return grow(); } return search(hi / 2, hi); }); }
     function search(lo, h) {            // lo exists (or 0), h does not
@@ -55,7 +58,11 @@
     order.forEach(function (i) {
       if (imgs[i]) return;
       var im = new Image(); im.decoding = "async";
-      im.onload = function () { im.done = true; need = true; };
+      if (i === 0 && "fetchPriority" in im) im.fetchPriority = "high";
+      im.onload = function () {
+        var done = function () { im.done = true; need = true; };
+        if (im.decode) im.decode().then(done, done); else done();     // decoded before use → smooth scrolling
+      };
       im.src = url(i); imgs[i] = im;
     });
   }
@@ -109,7 +116,8 @@
       if (s === 1) break;
     }
     if (all.indexOf(Math.min(N, END) - 1) < 0) all.push(Math.min(N, END) - 1);
-    var k = 0; (function batch() { load(all.slice(k, k + 24)); k += 24; if (k < all.length) setTimeout(batch, 60); })();
+    load([0]);                                                       // first picture shows straight away
+    var k = 0; (function batch() { load(all.slice(k, k + 32)); k += 32; if (k < all.length) setTimeout(batch, 30); })();
   });
   requestAnimationFrame(frame);
 
