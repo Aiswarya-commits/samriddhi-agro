@@ -50,7 +50,7 @@ def put(text, marker, content):
 
 
 import hashlib
-VERSIONED = ["/assets/css/style.css", "/assets/js/main.js", "/assets/js/home.js", "/assets/js/product.js", "/assets/js/hero-film.js", "/assets/js/product-story.js", "/assets/css/about.css", "/assets/css/theme-green.css", "/assets/css/quality.css", "/assets/css/sustainability.css", "/assets/js/quality3d.js", "/assets/js/sustain3d.js",   "/assets/js/about3d.js", "/assets/css/pages.css", "/assets/js/pages3d.js","/assets/js/shader-button.js", "/assets/js/products-film.js", "/assets/css/products-film.css", "/assets/js/about-film.js", "/assets/css/about-film.css"]
+VERSIONED = ["/assets/css/style.css", "/assets/js/main.js", "/assets/js/home.js", "/assets/js/product.js", "/assets/js/hero-film.js", "/assets/js/product-story.js", "/assets/css/about.css", "/assets/css/theme-green.css", "/assets/css/quality.css", "/assets/css/sustainability.css", "/assets/js/quality3d.js", "/assets/js/sustain3d.js", "/assets/js/about3d.js", "/assets/css/pages.css", "/assets/js/pages3d.js", "/assets/js/chat.js", "/assets/css/chat.css", "/assets/js/shader-button.js", "/assets/js/products-film.js", "/assets/css/products-film.css", "/assets/js/about-film.js", "/assets/css/about-film.css"]
 versions = {f: hashlib.md5((ROOT / f.lstrip("/")).read_bytes()).hexdigest()[:8] for f in VERSIONED}
 
 
