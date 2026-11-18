@@ -5,8 +5,15 @@ let PORT = +(process.env.PORT || 3000);
 const TYPES = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "text/javascript", ".mjs": "text/javascript",
   ".json": "application/json", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp",
   ".svg": "image/svg+xml", ".ico": "image/x-icon", ".mp4": "video/mp4", ".webm": "video/webm", ".woff2": "font/woff2", ".txt": "text/plain" };
+/* read secrets (ANTHROPIC_API_KEY=...) from a .env file next to this one — never commit that file */
+try { fs.readFileSync(path.join(ROOT, ".env"), "utf8").split(/\r?\n/).forEach((l) => { const m = l.match(/^\s*([A-Z_]+)\s*=\s*(.*)\s*$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, ""); }); } catch (e) {}
 const server = http.createServer((req, res) => {
   let p = decodeURIComponent(req.url.split("?")[0]);
+  if (p === "/api/chat") {                              // same assistant code that runs on Vercel
+    let raw = ""; req.on("data", (c) => (raw += c));
+    req.on("end", () => { try { req.body = JSON.parse(raw || "{}"); } catch (e) { req.body = {}; } require("./api/chat.js")(req, res); });
+    return;
+  }
   if (p.endsWith("/")) p += "index.html";
   const file = path.join(ROOT, path.normalize(p));
   if (!file.startsWith(ROOT)) { res.writeHead(403); return res.end(); }

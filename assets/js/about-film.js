@@ -98,7 +98,7 @@
       pin.style.transform = lv > 0.001 ? "perspective(1400px) translate3d(0," + (-lv * 3).toFixed(2) + "%,0) rotateX(" + (-lv * 6).toFixed(2) + "deg) scale(" + (1 - lv * 0.1).toFixed(3) + ")" : "";
       pin.style.filter = lv > 0.001 ? "brightness(" + (1 - lv * 0.55).toFixed(2) + ")" : "";
       veil.style.opacity = 0;
-    } else veil.style.opacity = sm(.87, .96, p).toFixed(3);    // the field melts to white, the wheat ear stays
+    } else veil.style.opacity = sm(.83, .9, p).toFixed(3);      // the field melts to white, the wheat ear stays
     copy.style.opacity = (1 - sm(.02, .14, p)).toFixed(3);
     copy.style.transform = "translate3d(0," + (-sm(.02, .14, p) * 60) + "px,0)";
     var mo = sm(.36, .44, p) * (1 - sm(.6, .68, p));

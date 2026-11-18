@@ -45,13 +45,8 @@
     }
     /* page transition for internal page links */
     if (url.origin === location.origin && !a.target && !e.metaKey && !e.ctrlKey && !e.shiftKey && href.indexOf("mailto:") !== 0 && href.indexOf("tel:") !== 0) {
-      var c = document.getElementById("curtain");
-      if (!c || reduced) return;
-      e.preventDefault();
-      c.classList.add("in");
-      setTimeout(function () { location.href = a.href; }, 560);
-    }
-  });
+      return;                                   // go straight to the next page (no green wipe / loading screen)    }
+  }});
   /* restore the page if the browser brings it back from cache */
   addEventListener("pageshow", function (e) { if (e.persisted) { var c = document.getElementById("curtain"); if (c) c.classList.remove("in"); } });
 
@@ -65,6 +60,9 @@
     if (bar) bar.style.width = "100%";
     setTimeout(function () { if (loader) loader.classList.add("done"); document.documentElement.classList.add("ready"); kickHero(); }, 250);
   };
+    /* the loading screen only shows on the FIRST page of a visit; moving between pages shows no loader */
+  var seen = false; try { seen = !!sessionStorage.getItem("samSeen"); sessionStorage.setItem("samSeen", "1"); } catch (e) {}
+  if (seen) { if (loader) loader.classList.add("done"); window.samriddhiReady(); }
   /* never block the page for long, even if 3D is slow or unsupported */
   setTimeout(function () { window.samriddhiReady(); }, document.body.classList.contains("home") ? 2600 : 700);
   addEventListener("load", function () { if (!document.body.classList.contains("home")) window.samriddhiReady(); });

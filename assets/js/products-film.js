@@ -11,9 +11,42 @@
   var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
   var FPS = 24;
   var S = secs.map(function (sec) {
-    return { sec: sec, card: sec.querySelector(".pf-card"), v: sec.querySelector(".pf-video"), bar: sec.querySelector(".pf-bar"),
+    var s = { sec: sec, card: sec.querySelector(".pf-card"), v: sec.querySelector(".pf-video"), bar: sec.querySelector(".pf-bar"),
              ins: [].slice.call(sec.querySelectorAll(".pf-in")), loaded: false };
+    /* FRAME MODE (data-frames on the section): the film is drawn from still images, like the Markets page,
+       instead of a video — sharper and perfectly smooth. e.g. data-frames="/marketsframes/markets-frame-" data-end="190" */
+    if (sec.dataset.frames) {
+      var cv = document.createElement("canvas"); cv.className = "pf-video pf-frames";
+      cv.style.backgroundImage = "url(" + sec.dataset.frames + "001" + (sec.dataset.ext || ".jpg") + ")";
+      cv.style.backgroundSize = "cover"; cv.style.backgroundPosition = "center";
+      s.v.parentNode.replaceChild(cv, s.v); s.v = cv;
+      s.fr = { base: sec.dataset.frames, ext: sec.dataset.ext || ".jpg", n: +(sec.dataset.end || 0), imgs: [], ctx: cv.getContext("2d"), shown: -1 };
+    }
+    return s;
   });
+  function frameUrl(f, i) { return f.base + String(i + 1).padStart(3, "0") + f.ext; }
+  function loadFrames(s) {
+    var f = s.fr, mobile = matchMedia("(max-width: 760px)").matches, step = mobile ? 2 : 1, order = [0], i, k;
+    for (k = 16; k >= step; k /= 2) { for (i = 0; i < f.n; i += k) if (order.indexOf(i) < 0 && i % step === 0) order.push(i); if (k === 1) break; }
+    if (order.indexOf(f.n - 1) < 0) order.push(f.n - 1);
+    var at = 0; (function batch() {
+      order.slice(at, at + 32).forEach(function (j) {
+        var im = new Image(); im.decoding = "async";
+        im.onload = function () { var ok = function () { im.done = true; f.shown = -1; }; if (im.decode) im.decode().then(ok, ok); else ok(); };
+        im.src = frameUrl(f, j); f.imgs[j] = im;
+      });
+      at += 32; if (at < order.length) setTimeout(batch, 30);
+    })();
+  }
+  function drawFrame(s, n) {
+    var f = s.fr, cv = s.v, d = Math.min(window.devicePixelRatio || 1, 1.6);
+    var w = Math.round(cv.clientWidth * d), h = Math.round(cv.clientHeight * d);
+    if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; f.shown = -1; }
+    var im = null; for (var k = 0; k < f.n && !im; k++) { var a = f.imgs[n - k], b = f.imgs[n + k]; im = (a && a.done && a) || (b && b.done && b) || null; }
+    if (!im || im === f.shown) return; f.shown = im;
+    var sc = Math.max(w / im.naturalWidth, h / im.naturalHeight), iw = im.naturalWidth * sc, ih = im.naturalHeight * sc;
+    f.ctx.drawImage(im, (w - iw) / 2, (h - ih) / 2, iw, ih);
+  }
 
   /* Smooth on the live site: the video starts streaming at once, and in the background the whole file
      is downloaded; when it arrives the player switches to that in-memory copy (same frame), so
@@ -30,6 +63,7 @@
 
   function load(s) {
     if (s.loaded) return; s.loaded = true;
+    if (s.fr) { loadFrames(s); return; }
     s.v.src = s.v.dataset.src; s.v.preload = "auto";
     s.v.play().then(function () { s.v.pause(); }).catch(function () {});   // wakes the decoder on iOS
     memoryCopy(s.v, s.v.dataset.src);
@@ -86,6 +120,7 @@
       /* video follows the scroll, whole frames only (no shiver when you stop) */
       /* whole frames only, aimed at the MIDDLE of each frame (never on the edge between two frames),
          and only when the frame number changes — so a still scroll means a perfectly still picture */
+      if (s.fr) { if (s.fr.n) drawFrame(s, Math.round(p * (s.fr.n - 1))); continue; }
       var v = s.v, d = v.duration;
       if (d && isFinite(d) && v.readyState >= 1) {
         var frames = Math.max(1, Math.floor(d * FPS) - 1);

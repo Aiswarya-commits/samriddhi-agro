@@ -2,10 +2,55 @@
   "cleanUrls": false,
   "trailingSlash": false,
   "headers": [
-    { "source": "/(.*)\\.html", "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }] },
-    { "source": "/", "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }] },
-    { "source": "/assets/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] },
-    { "source": "/(images|products/img|videos)/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=2592000" }] },
-    { "source": "/:dir(farmerframes|qualityframes|sustainframes|whatwedoframes|supplyframes|marketsframes|intelframes|buyersframes|suppliersframes|insightsframes|storiesframes|quoteframes)/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=2592000" }] }
-  ]
+    {
+      "source": "/(.*)\\.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(images|products/img|videos)/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=2592000"
+        }
+      ]
+    },
+    {
+      "source": "/:dir(farmerframes|qualityframes|sustainframes|whatwedoframes|supplyframes|marketsframes|intelframes|buyersframes|suppliersframes|insightsframes|storiesframes|quoteframes)/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=2592000"
+        }
+      ]
+    }
+  ],
+  "functions": {
+    "api/chat.js": {
+      "maxDuration": 30
+    }
+  }
 }
