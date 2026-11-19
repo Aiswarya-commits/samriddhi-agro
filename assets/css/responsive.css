@@ -1,0 +1,53 @@
+/* ==========================================================================
+   responsive.css — screen-size fixes only. Loaded after every other stylesheet.
+   Nothing here changes the design; it only fixes spots that overflowed,
+   overlapped or got cramped on certain screen sizes (tested 320 px → 2560 px).
+   Remove the one <link> to this file to undo everything.
+   ========================================================================== */
+
+/* 1. No sideways wobble on phones (iPhone ignores the body-only rule).
+      "clip" cuts off overflow without creating a scroll box, so pinned
+      sections, smooth scrolling and sticky elements keep working. */
+@supports (overflow: clip) {
+  html, body { overflow-x: clip; }
+}
+
+/* 2. Long words / e-mail addresses wrap instead of pushing the page wider */
+p, li, dd, dt, h1, h2, h3, h4, label, .lede { overflow-wrap: break-word; }
+
+/* 3. Markets + For Suppliers: the "flip" row shared a name with the flip-card style
+      (fixed 290 px height), so the photo spilled into the next section and text
+      overlapped the "Export Process" heading. Let the row size to its content. */
+.pg-row.flip { height: auto; perspective: none; }
+
+/* 4. Home "Core values": six squares were wider than the screen on phones,
+      tablets and 1024 px laptops (page could slide sideways). */
+.values { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.value { min-width: 0; }
+@media (max-width: 1100px) { .values { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 520px) {
+  .values { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .value { padding: 14px; border-radius: 16px; }
+  .value b { font-size: 15px; }
+}
+
+/* 5. Home hero, phones: the product picture and the product list overlapped
+      in the bottom corner. Picture centred above, list neatly below it. */
+@media (max-width: 760px) and (orientation: portrait) {
+  .film-range .range-card { left: 50%; top: 24vh; bottom: auto; width: min(56vw, 250px); margin-left: calc(min(56vw, 250px) / -2); }
+  .film-range .range-list { left: 20px; right: auto; top: auto; bottom: max(6vh, 26px); }
+}
+@media (max-width: 760px) {
+  /* hero intro text stays clear of the round chat / WhatsApp buttons */
+  .film-lead { padding-right: 62px; }
+}
+
+/* 6. Phones held sideways (short screens): hero text a bit tighter so it fits */
+@media (max-height: 480px) and (orientation: landscape) {
+  .film-copy { padding-top: 84px; }
+  .film-title { font-size: clamp(24px, 4.6vw, 36px); max-width: 16em; }
+  .film-lead { display: none; }
+  .film-range .range-title { top: 70px; width: 46vw; right: auto; font-size: 22px; }
+  .film-range .range-card { left: 6vw; top: auto; bottom: 8vh; width: 40vh; margin-left: 0; }
+  .film-range .range-list { left: auto; right: 24px; top: 72px; bottom: auto; }
+}
