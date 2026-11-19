@@ -81,6 +81,37 @@
   /* ---------- 1. wheat video ---------- */
   var dur = 0, shownFrame = -1, wantFrame = 0, introDone = false, readyCalled = false, visible = true;
   function ready() { if (!readyCalled) { readyCalled = true; window.samriddhiReady && window.samriddhiReady(); } }
+  /* FRAME MODE (data-frames on #top): the hero is drawn from still pictures instead of the video,
+     exactly like the other pages' films — every scroll step shows instantly, no video seeking.
+     e.g. data-frames="/heroframes/hero-frame-" data-ext=".jpg" data-fps="24" data-end="240" */
+  var FR = hero.dataset.frames ? { base: hero.dataset.frames, ext: hero.dataset.ext || ".jpg", n: +(hero.dataset.end || 0),
+            fps: +(hero.dataset.fps || FPS), imgs: [], shown: null, cv: null, ctx: null } : null;
+  if (FR && FR.n) {
+    var cv = document.createElement("canvas");
+    cv.setAttribute("aria-hidden", "true");
+    cv.style.cssText = "position:absolute;inset:0;width:100%;height:100%;display:block;background:center/cover no-repeat";
+    cv.style.backgroundImage = "url(" + (vid.getAttribute("poster") || (FR.base + "001" + FR.ext)) + ")";
+    vid.parentNode.replaceChild(cv, vid);
+    FR.cv = cv; FR.ctx = cv.getContext("2d");
+    dur = FR.n / FR.fps; introDone = true;
+    var url = function (i) { return FR.base + String(i + 1).padStart(3, "0") + FR.ext; };
+    /* first frame first, then the rest coarse-to-fine, so any scroll position has a picture early */
+    var order = [0], i, k;
+    for (k = 16; k >= 1; k /= 2) { for (i = 0; i < FR.n; i += k) if (order.indexOf(i) < 0) order.push(i); if (k === 1) break; }
+    var at = 0;
+    (function batch() {
+      order.slice(at, at + 24).forEach(function (j) {
+        var im = new Image(); im.decoding = "async";
+        im.onload = function () {
+          var ok = function () { im.done = true; FR.shown = null; if (j === 0) ready(); };
+          if (im.decode) im.decode().then(ok, ok); else ok();
+        };
+        im.src = url(j); FR.imgs[j] = im;
+      });
+      at += 24; if (at < order.length) setTimeout(batch, 25);
+    })();
+    setTimeout(ready, 2500);
+  } else {
   vid.muted = true; vid.playsInline = true;
   vid.src = (small && vid.dataset.srcMobile) || vid.dataset.src;
   var heroUrl = vid.src;
@@ -97,6 +128,8 @@
     (function watch() { if (introDone) return; if (vid.currentTime >= INTRO_PLAY || progress() > 0.005) stopIntro(); else requestAnimationFrame(watch); })();
   }).catch(stopIntro); else stopIntro();
 
+  }
+
   /* seek by whole frames only, and only when the wanted frame changes → no idle shaking */
   var smoothF = 0;
   function driveVideo(v) {
@@ -106,7 +139,21 @@
     smoothF += (wantFrame - smoothF) * (reduced ? 1 : 0.2);
     if (Math.abs(wantFrame - smoothF) < 0.5) smoothF = wantFrame;
     var f = Math.round(smoothF);
+    if (FR && FR.cv) { drawHero(Math.round(f * FR.fps / FPS)); return; }
     if (f !== shownFrame && !vid.seeking) { shownFrame = f; vid.currentTime = (f + 0.5) / FPS; }
+  }
+  /* draw the wanted picture (or the nearest one already loaded), cover-fit, only when it changes */
+  function drawHero(n) {
+    var cv = FR.cv, d = Math.min(window.devicePixelRatio || 1, 1.6);
+    var w = Math.round(cv.clientWidth * d), h = Math.round(cv.clientHeight * d);
+    if (!w || !h) return;
+    if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; FR.shown = null; }
+    n = clamp(n, 0, FR.n - 1);
+    var im = null;
+    for (var k = 0; k < FR.n && !im; k++) { var a = FR.imgs[n - k], b = FR.imgs[n + k]; im = (a && a.done && a) || (b && b.done && b) || null; }
+    if (!im || im === FR.shown) return; FR.shown = im;
+    var sc = Math.max(w / im.naturalWidth, h / im.naturalHeight), iw = im.naturalWidth * sc, ih = im.naturalHeight * sc;
+    FR.ctx.drawImage(im, (w - iw) / 2, (h - ih) / 2, iw, ih);
   }
 
   /* ---------- scene videos: load after the hero is up, play only while seen ---------- */

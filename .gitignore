@@ -22,3 +22,5 @@ videos/herosectionwheat.mp4
 videos/cerealsprod.mp4
 
 .env
+
+*.ps1
