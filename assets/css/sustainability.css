@@ -10,7 +10,7 @@
 /* four commitments: pinned, cards fan out */
 .sec.s-fan { height: 300vh; padding: 0; background: radial-gradient(110% 90% at 50% 45%, #2a6a3f 0%, #164229 55%, #0b2214 100%); color: #fff; }
 .fan { position: relative; width: 100%; height: min(420px, 56vh); margin-top: 10vh; perspective: 1600px; }
-.fcard { position: absolute; left: 50%; top: 50%; width: clamp(230px, 22vw, 300px); height: clamp(300px, 28vw, 380px); margin: calc(clamp(300px, 28vw, 380px) / -2) 0 0 calc(clamp(230px, 22vw, 300px) / -2);
+.fcard { position: absolute; left: 50%; top: 50%; width: clamp(230px, 22vw, 300px); height: clamp(300px, 28vw, 380px); margin: calc(clamp(300px, 28vw, 380px) / -2) 0 0 calc(clamp(230px, 22vw, 300px) / -2 );
   padding: 28px; border-radius: 24px; display: flex; flex-direction: column; gap: 10px; transform-style: preserve-3d; will-change: transform;
   background: linear-gradient(160deg, #ffffff 0%, #eef6e6 100%); color: var(--ink); box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .55); }
 .fcard .ic { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; background: var(--night, #0f2e1c); color: var(--gold-2, #a9d57a); margin-bottom: auto; }
@@ -33,3 +33,25 @@
 .stop small { display: block; margin-top: 6px; color: var(--muted); font-size: 14px; }
 @media (max-width: 860px) { .stops { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 520px) { .stops { grid-template-columns: 1fr; } }
+
+/* four commitments: photo backgrounds on the cards */
+.fan .fcard:nth-child(1) { --bg: url(/images/agrisus.jpg); }
+.fan .fcard:nth-child(2) { --bg: url(/images/agrisus1.jpg); }
+.fan .fcard:nth-child(3) { --bg: url(/images/agrisus3.jpg); }
+.fan .fcard:nth-child(4) { --bg: url(/images/agrisus4.jpg); }
+
+.fan .fcard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg,
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,0) 28%,
+      rgba(246,250,241,.86) 56%,
+      #f3f8ec 100%),
+    var(--bg) center / cover no-repeat;
+}
+.fan .fcard > * { position: relative; } 
