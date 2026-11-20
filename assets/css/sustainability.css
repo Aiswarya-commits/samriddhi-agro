@@ -40,18 +40,13 @@
 .fan .fcard:nth-child(3) { --bg: url(/images/agrisus3.jpg); }
 .fan .fcard:nth-child(4) { --bg: url(/images/agrisus4.jpg); }
 
-.fan .fcard::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
+body.sustain .fan .fcard {
   background:
     linear-gradient(180deg,
       rgba(255,255,255,0) 0%,
       rgba(255,255,255,0) 28%,
       rgba(246,250,241,.86) 56%,
       #f3f8ec 100%),
-    var(--bg) center / cover no-repeat;
+    var(--bg) center / cover no-repeat,
+    #f3f8ec;
 }
-.fan .fcard > * { position: relative; } 
