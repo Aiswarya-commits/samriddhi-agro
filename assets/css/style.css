@@ -681,7 +681,7 @@ form.inq .hint { font: 400 13px var(--sans); letter-spacing: 0; text-transform: 
   .ps-huge { font-size: 78px; }
 }
 /* ---------- single logo in the navbar ---------- */
-.brand-logo { display: flex; align-items: center; height: 62px; padding: 4px 14px; margin: -6px 0; border-radius: 18px;  box-shadow: 0 6px 18px -8px rgba(0, 0, 0, .35); transition: transform .4s var(--ease); flex: none; }
+.brand-logo { display: flex; align-items: center; height: 62px; padding: 4px 14px; margin: -6px 0; border-radius: 0; box-shadow: none; background: none; border: 0; transition: transform .4s var(--ease); flex: none; }
 .brand-logo:hover { transform: scale(1.04); }
 .brand-logo img { display: block; height: 100%; width: auto; }
 @media (max-width: 760px) { .brand-logo { height: 50px; padding: 3px 10px; border-radius: 14px; } }

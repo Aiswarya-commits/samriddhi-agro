@@ -50,7 +50,7 @@ def put(text, marker, content):
 
 
 import hashlib
-VERSIONED = ["/assets/css/style.css", "/assets/js/main.js", "/assets/js/home.js", "/assets/js/product.js", "/assets/js/hero-film.js", "/assets/js/product-story.js", "/assets/css/about.css", "/assets/css/theme-green.css", "/assets/css/quality.css", "/assets/css/sustainability.css", "/assets/js/quality3d.js", "/assets/js/sustain3d.js", "/assets/js/about3d.js", "/assets/css/pages.css", "/assets/js/pages3d.js", "/assets/js/chat.js", "/assets/css/chat.css", "/assets/js/shader-button.js", "/assets/js/products-film.js", "/assets/css/products-film.css", "/assets/js/about-film.js", "/assets/css/about-film.css", "/assets/css/responsive.css"]
+VERSIONED = ["/assets/css/style.css", "/assets/js/main.js", "/assets/js/home.js", "/assets/js/product.js", "/assets/js/hero-film.js", "/assets/js/product-story.js", "/assets/css/about.css", "/assets/css/theme-green.css", "/assets/css/quality.css", "/assets/css/sustainability.css", "/assets/js/quality3d.js", "/assets/js/sustain3d.js", "/assets/js/about3d.js", "/assets/css/pages.css", "/assets/js/pages3d.js", "/assets/js/chat.js", "/assets/css/chat.css", "/assets/js/shader-button.js", "/assets/js/products-film.js", "/assets/css/products-film.css", "/assets/js/about-film.js", "/assets/css/about-film.css", "/assets/css/responsive.css", "/assets/css/careers.css"]
 versions = {f: hashlib.md5((ROOT / f.lstrip("/")).read_bytes()).hexdigest()[:8] for f in VERSIONED}
 
 
@@ -80,7 +80,7 @@ home = put(home, "OPTIONS", "".join(f"<option>{e(c['name'])}</option>" for c in 
 (ROOT / "index.html").write_text(shell(home), encoding="utf-8")
 
 # ---------- about + other pages ----------
-for page in ["about","products", "quality", "sustainability", "what-we-do", "supply-chain", "markets", "market-intelligence", "for-buyers", "for-suppliers", "insights", "trade-stories", "quote"]:   # src/<name>.html → <name>.html
+for page in ["about","products", "quality", "sustainability", "what-we-do", "supply-chain", "markets", "market-intelligence", "for-buyers", "for-suppliers", "insights", "trade-stories", "quote","careers"]:   # src/<name>.html → <name>.html
     if (ROOT / f"src/{page}.html").exists():
         (ROOT / f"{page}.html").write_text(shell((ROOT / f"src/{page}.html").read_text(encoding="utf-8")), encoding="utf-8")
         # ---------- products ----------
