@@ -31,6 +31,7 @@
   var css = document.createElement("style");
   css.textContent =
     ".ab-film[data-look] .abf-stage{perspective:1100px;perspective-origin:50% 50%}" +
+    "@media (hover:none){.ab-film[data-look] .abf-stage{perspective:700px}}" +   /* deeper 3D on phones */
     ".ab-film[data-look] .abf-canvas{transform:scale(1.14);transform-origin:50% 50%;will-change:transform;backface-visibility:hidden}" +
     ".ab-film[data-look] .abf-copy h1,.ab-film[data-look] .abf-mid p{will-change:transform;transform-origin:20% 50%}" +
     ".look3d-tap{position:absolute;left:50%;bottom:104px;white-space:nowrap;transition:opacity .4s;z-index:5;transform:translateX(-50%);display:none;align-items:center;gap:8px;" +
@@ -44,6 +45,8 @@
   var tx = 0, ty = 0;      // where we want to look from (-1 … 1)
   var x = 0, y = 0;        // where we are now (eased)
   var amp = 0;             // 0 = mouse / tilt strength, 1 = camera strength
+  var ah = 0;              // 1 while the camera is steering (eased)
+  var PH = !matchMedia("(hover: hover) and (pointer: fine)").matches;   // phone / tablet: extra-strong camera mode
   var tz = 0, z = 0;       // camera only: how close you are (-1 far … 1 near)
   var source = "drift";    // "mouse" | "head" | "tilt" | "drift"
   var lastInput = 0;
@@ -157,11 +160,11 @@
       if (baseN < 15) { baseW = baseN ? (baseW * baseN + fw) / (baseN + 1) : fw; baseN++; }
       else baseW += (fw - baseW) * 0.0015;                               // slowly settles if you sit differently
       fwS += (fw - fwS) * 0.35;
-      tz = clamp((fwS / baseW - 1) * 3.2, -1, 1);                        // -1 = leaned back, +1 = leaned in
+      tz = clamp((fwS / baseW - 1) * (PH ? 5 : 3.2), -1, 1);                        // -1 = leaned back, +1 = leaned in
       source = "head"; lastInput = now;
       // like a window: move your head right and the scene beyond slides the same way
-      tx = clamp((fx - 0.5) * 5, -1, 1);       // small head moves reach the full turn
-      ty = clamp((0.45 - fy) * 5, -1, 1);
+      tx = clamp((fx - 0.5) * (PH ? 7 : 5), -1, 1);       // small head moves reach the full turn
+      ty = clamp((0.45 - fy) * (PH ? 7 : 5), -1, 1);
     };
   }
 
@@ -240,20 +243,24 @@
     amp += ((source === "head" ? 1 : source === "tilt" ? 0.75 : 0) - amp) * 0.05;   // camera and tilt turn much further (eases in and out)
     if (source !== "head") tz = 0;
     z += (tz - z) * 0.08;
+    ah += ((source === "head" ? 1 : 0) - ah) * 0.05;
+    var P = PH ? ah : 0;                                     // phones with the camera on: much stronger
     var A = (1 + 1.7 * amp) * (z < 0 ? 1 + z * 0.3 : 1);   // leaning back also calms the turn so the edges stay covered
+    var AS = A * (1 + 0.45 * P), AR = A * (1 + 1.1 * P);     // slide / turn strength
     // how far the film slides, in pixels, measured on the larger side of the screen (so narrow phones move as much as laptops)
     var W = canvas.clientWidth || innerWidth, H = canvas.clientHeight || innerHeight, D = Math.max(W, H * 1.25);
-    var mx = 0.024 * A * D, my = 0.018 * A * D;
+    var mx = 0.024 * AS * D, my = 0.018 * AS * D;
     // just enough zoom that the slid / turned film always covers the screen
-    var cover = Math.max(1 + 2 * mx / W, 1 + 2 * my / H) + 0.035 * A;
-    var S = Math.max(1.14 + 0.3 * amp, cover) + (z > 0 ? z * 0.55 : z * 0.12);  // lean in → zoom in, lean back → zoom out
+    var cover = Math.max(1 + 2 * mx / W, 1 + 2 * my / H) + 0.035 * AR + 0.03 * P * AR;
+    var neutral = Math.max(1.14 + 0.3 * amp, cover) + 0.35 * P;   // phones keep room to zoom out
+    var S = neutral + (z > 0 ? z * (0.55 + 0.5 * P) : z * (0.12 + 0.25 * P));  // lean in → zoom in, lean back → zoom out
     if (S < cover) S = cover;
     var TS = 1 + z * 0.12;                                    // the words come towards you a little too
 
     // the film: turns towards where you look from and slides the other way (window parallax)
     canvas.style.transform =
       "translate3d(" + (-x * mx).toFixed(2) + "px," + (-y * my).toFixed(2) + "px,0) " +
-      "rotateY(" + (x * 5 * A).toFixed(3) + "deg) rotateX(" + (-y * 3.6 * A).toFixed(3) + "deg) scale(" + S.toFixed(4) + ")";
+      "rotateY(" + (x * 5 * AR).toFixed(3) + "deg) rotateX(" + (-y * 3.6 * AR).toFixed(3) + "deg) scale(" + S.toFixed(4) + ")";
 
     // the words: float in front, moving with you (less on narrow phones so they stay on screen)
     var TA = A * Math.min(1, W / 900);
