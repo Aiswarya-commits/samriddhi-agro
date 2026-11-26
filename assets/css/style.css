@@ -146,7 +146,7 @@ p { margin: 0; }
     transition: opacity .3s, transform .4s var(--ease), visibility .3s;
   }
   .nav.open .menu { opacity: 1; visibility: visible; transform: none; }
-  .drop { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; background: transparent; padding: 0 0 6px 12px; min-width: 0; }
+  .drop { position: static; opacity: 1; visibility: inherit; transform: none; box-shadow: none; background: transparent; padding: 0 0 6px 12px; min-width: 0; }  
   .drop a { padding: 8px 12px; }
   .menu > li:hover .drop { transform: none; }
 }
