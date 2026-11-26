@@ -61,28 +61,29 @@
     document.addEventListener("mouseleave", function () { if (source !== "head") { tx = 0; ty = 0; } });
   }
 
-  /* ---------- laptops: optional head tracking with the camera ---------- */
+  /* ---------- laptops and phones: optional head tracking with the camera ---------- */
   var VISION = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14";
   var MODEL = "https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite";
   var cam = null;   // { btn, dock, video, stream, detector, on, wanted }
-  if (finePointer && navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.isSecureContext) {
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.isSecureContext) {
     css.textContent +=
       ".look3d-cam-dock{position:absolute;left:24px;bottom:24px;z-index:5;display:none;align-items:center;gap:10px;padding:6px 6px 6px 8px;" +
       "border-radius:999px;background:rgba(10,30,18,.5);color:#fff;font:500 11px/1 var(--mono,monospace);letter-spacing:.1em;text-transform:uppercase;" +
       "-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.25)}" +
       ".look3d-cam-dock.show{display:inline-flex}" +
-      ".look3d-cam-dock video{position:absolute;left:0;top:0;width:2px;height:2px;opacity:0;pointer-events:none}" +   /* kept running for tracking, never shown */
+      ".look3d-cam-dock video{position:absolute;left:0;top:0;width:2px;height:2px;opacity:.01;pointer-events:none}" +   /* kept running for tracking, never shown */
       ".look3d-cam-dock svg{width:16px;height:16px;margin-left:8px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}" +
       ".look3d-cam-dock button{all:unset;cursor:pointer;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,.15)}" +
-      ".look3d-cam-dock button:hover{background:rgba(255,255,255,.3)}";
+      ".look3d-cam-dock button:hover{background:rgba(255,255,255,.3)}" +
+      "@media (hover:none),(max-width:760px){.look3d-cam-dock{left:50%;bottom:104px;transform:translateX(-50%);white-space:nowrap}.look3d-cam-dock .lbl{display:none}}";
     cam = { on: false, wanted: false };
     cam.btn = document.createElement("button");
     cam.btn.type = "button"; cam.btn.className = "look3d-tap show";
-    cam.btn.title = "Move your head to look around. The camera image stays on your computer — nothing is recorded or sent.";
+    cam.btn.title = "Move your head to look around. The camera image stays on your device — nothing is recorded or sent.";
     cam.btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 10l5-3v10l-5-3z"/><rect x="3" y="6" width="12" height="12" rx="2"/></svg><span>Use camera for 3D</span>';
     cam.dock = document.createElement("div"); cam.dock.className = "look3d-cam-dock";
     cam.video = document.createElement("video"); cam.video.muted = true; cam.video.playsInline = true; cam.video.setAttribute("playsinline", "");
-    var label = document.createElement("span"); label.textContent = "Move your head";
+    var label = document.createElement("span"); label.className = "lbl"; label.textContent = "Move your head";
     var stopBtn = document.createElement("button"); stopBtn.type = "button"; stopBtn.textContent = "Stop camera";
     var camIcon = document.createElement("span"); camIcon.setAttribute("aria-hidden", "true");
     camIcon.innerHTML = '<svg viewBox="0 0 24 24"><path d="M15 10l5-3v10l-5-3z"/><rect x="3" y="6" width="12" height="12" rx="2"/></svg>';
@@ -118,7 +119,8 @@
         });
       }).catch(function (err) {
         cam.wanted = false; stopCam(true);
-        say(err && err.name === "NotAllowedError" ? "Camera blocked — using mouse" : "Camera unavailable — using mouse");
+        var fb = finePointer ? "using mouse" : "using tilt";
+        say(err && err.name === "NotAllowedError" ? "Camera blocked — " + fb : "Camera unavailable — " + fb);
         setTimeout(function () { say("Use camera for 3D"); }, 3500);
       });
     };
@@ -128,10 +130,14 @@
       if (cam.stream) cam.stream.getTracks().forEach(function (t) { t.stop(); });
       cam.stream = null; cam.video.srcObject = null;
       cam.dock.classList.remove("show"); cam.btn.classList.add("show"); say("Use camera for 3D");
-      if (source === "head") { source = "mouse"; tx = 0; ty = 0; }
+      if (source === "head") { source = finePointer ? "mouse" : "drift"; tx = 0; ty = 0; }
       tz = 0;
     };
-    cam.btn.addEventListener("click", function (e) { e.stopPropagation(); if (!cam.on) startCam(); });
+    cam.btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      if (askMotion) askMotion();   // iPhone: the same tap also allows the tilt, used if the camera is refused
+      if (!cam.on) startCam();
+    });
     stopBtn.addEventListener("click", function (e) { e.stopPropagation(); stopCam(false); });
     cam.stopForAway = function () { if (cam.on) { stopCam(true); } };            // camera light goes off when you scroll past the film
     cam.resume = function () { if (cam.wanted && !cam.on && !cam.stream) startCam(); };
@@ -168,36 +174,40 @@
     if (land && ((screen.orientation && screen.orientation.angle) || window.orientation) < 0) { a = -a; b = -b; }
     if (!base) base = { a: a, b: b };
     base.a += (a - base.a) * 0.004; base.b += (b - base.b) * 0.004;   // slowly re-centres on how you hold the phone
+    if (source === "head") return;   // the camera is steering
     source = "tilt"; lastInput = performance.now();
-    tx = clamp((a - base.a) / 18, -1, 1);
-    ty = clamp((b - base.b) / 18, -1, 1);
+    tx = clamp((a - base.a) / 12, -1, 1);   // a small tilt reaches the full turn
+    ty = clamp((b - base.b) / 12, -1, 1);
   }
   function listenTilt() { addEventListener("deviceorientation", onTilt, { passive: true }); }
 
-  var DOE = window.DeviceOrientationEvent;
+  var DOE = window.DeviceOrientationEvent, askMotion = null;
   if (!finePointer && DOE) {
     if (typeof DOE.requestPermission === "function") {
       // iPhone / iPad: Apple needs one tap before the page can read the tilt
-      var tap = document.createElement("button");
-      tap.type = "button"; tap.className = "look3d-tap";
-      tap.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M3 9c-1 2-1 4 0 6M21 9c1 2 1 4 0 6"/></svg>Tap for 3D view';
-      (sec.querySelector(".abf-pin") || sec).appendChild(tap);
-      var ask = function () {
+      var once = false, listenOnce = function () { if (!once) { once = true; listenTilt(); } };
+      var tap = null;
+      askMotion = function () {
         DOE.requestPermission().then(function (r) {
-          if (r === "granted") { listenTilt(); try { sessionStorage.setItem("look3d", "1"); } catch (e) {} }
-          tap.classList.remove("show");
-        }).catch(function () { tap.classList.remove("show"); });
+          if (r === "granted") { listenOnce(); try { sessionStorage.setItem("look3d", "1"); } catch (e) {} }
+          if (tap) tap.classList.remove("show");
+        }).catch(function () { if (tap) tap.classList.remove("show"); });
       };
-      tap.addEventListener("click", function (e) { e.stopPropagation(); ask(); });
-      var once = false; listenTilt = (function (f) { return function () { if (!once) { once = true; f(); } }; })(listenTilt);
+      if (!cam) {   // no camera available: show the tilt button on its own
+        tap = document.createElement("button");
+        tap.type = "button"; tap.className = "look3d-tap";
+        tap.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M3 9c-1 2-1 4 0 6M21 9c1 2 1 4 0 6"/></svg>Tap for 3D view';
+        (sec.querySelector(".abf-pin") || sec).appendChild(tap);
+        tap.addEventListener("click", function (e) { e.stopPropagation(); askMotion(); });
+        window.__look3dTap = tap;
+      }
       var granted = false; try { granted = sessionStorage.getItem("look3d") === "1"; } catch (e) {}
-      if (granted) document.addEventListener("touchend", function once() { document.removeEventListener("touchend", once); ask(); }, { passive: true });
+      if (granted) document.addEventListener("touchend", function first() { document.removeEventListener("touchend", first); askMotion(); }, { passive: true });
       else {
         // some phones already allow the tilt without asking: listen first, show the button only if nothing arrives
-        listenTilt();
-        setTimeout(function () { if (source !== "tilt") tap.classList.add("show"); }, 900);
+        listenOnce();
+        if (tap) setTimeout(function () { if (source !== "tilt") tap.classList.add("show"); }, 900);
       }
-      window.__look3dTap = tap;
     } else {
       listenTilt();   // Android and most other phones: works straight away
     }
@@ -227,23 +237,30 @@
     }
     var k = source === "tilt" || source === "head" ? 0.12 : 0.07;
     x += (tx - x) * k; y += (ty - y) * k;
-    amp += ((source === "head" ? 1 : 0) - amp) * 0.05;   // camera mode turns much further (eases in and out)
+    amp += ((source === "head" ? 1 : source === "tilt" ? 0.75 : 0) - amp) * 0.05;   // camera and tilt turn much further (eases in and out)
     if (source !== "head") tz = 0;
     z += (tz - z) * 0.08;
     var A = (1 + 1.7 * amp) * (z < 0 ? 1 + z * 0.3 : 1);   // leaning back also calms the turn so the edges stay covered
-    var S = 1.14 + 0.3 * amp + (z > 0 ? z * 0.55 : z * 0.12);  // lean in → zoom in, lean back → zoom out
+    // how far the film slides, in pixels, measured on the larger side of the screen (so narrow phones move as much as laptops)
+    var W = canvas.clientWidth || innerWidth, H = canvas.clientHeight || innerHeight, D = Math.max(W, H * 1.25);
+    var mx = 0.024 * A * D, my = 0.018 * A * D;
+    // just enough zoom that the slid / turned film always covers the screen
+    var cover = Math.max(1 + 2 * mx / W, 1 + 2 * my / H) + 0.035 * A;
+    var S = Math.max(1.14 + 0.3 * amp, cover) + (z > 0 ? z * 0.55 : z * 0.12);  // lean in → zoom in, lean back → zoom out
+    if (S < cover) S = cover;
     var TS = 1 + z * 0.12;                                    // the words come towards you a little too
 
     // the film: turns towards where you look from and slides the other way (window parallax)
     canvas.style.transform =
-      "translate3d(" + (-x * 2.4 * A).toFixed(3) + "%," + (-y * 1.8 * A).toFixed(3) + "%,0) " +
+      "translate3d(" + (-x * mx).toFixed(2) + "px," + (-y * my).toFixed(2) + "px,0) " +
       "rotateY(" + (x * 5 * A).toFixed(3) + "deg) rotateX(" + (-y * 3.6 * A).toFixed(3) + "deg) scale(" + S.toFixed(4) + ")";
 
-    // the words: float in front, moving with you
+    // the words: float in front, moving with you (less on narrow phones so they stay on screen)
+    var TA = A * Math.min(1, W / 900);
     for (var i = 0; i < layers.length; i++) {
       var L = layers[i];
-      L[0].style.transform = "perspective(900px) translate3d(" + (x * L[1] * A).toFixed(2) + "px," + (y * L[1] * 0.7 * A).toFixed(2) + "px,0)" + (TS !== 1 ? " scale(" + (1 + (TS - 1) * L[1] / 26).toFixed(4) + ")" : "") +
-        (L[2] ? " rotateY(" + (x * L[2] * A).toFixed(2) + "deg) rotateX(" + (-y * L[2] * 0.7 * A).toFixed(2) + "deg)" : "");
+      L[0].style.transform = "perspective(900px) translate3d(" + (x * L[1] * TA).toFixed(2) + "px," + (y * L[1] * 0.7 * TA).toFixed(2) + "px,0)" + (TS !== 1 ? " scale(" + (1 + (TS - 1) * L[1] / 26).toFixed(4) + ")" : "") +
+        (L[2] ? " rotateY(" + (x * L[2] * TA).toFixed(2) + "deg) rotateX(" + (-y * L[2] * 0.7 * TA).toFixed(2) + "deg)" : "");
     }
   })(performance.now());
 })();
